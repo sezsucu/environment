@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # [Aliases]
 # to sanitize the terminal
 alias sane="stty sane"

@@ -1,4 +1,6 @@
-# Mac or Linux
+#!/usr/bin/env bash
+
+# Mac, Linux, Cygwin, WSL
 export ENV_PLATFORM="Linux"
 
 # 32 or 64
