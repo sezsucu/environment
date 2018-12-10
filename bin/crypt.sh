@@ -82,6 +82,7 @@ function signData()
     openssl dgst -sha256 -sign $keyFile <&0
 }
 
+# verifies the given signature for the given file using the public key
 function verifyData()
 {
     if [[ $# == 0 || "$1" == "" ]]; then
@@ -94,6 +95,7 @@ function verifyData()
     openssl dgst -sha256 -verify $keyFile -signature $sigFile <&0
 }
 
+# adds password to a private key file
 function addPassword()
 {
     if [[ $# == 0 || "$1" == "" ]]; then
@@ -105,6 +107,7 @@ function addPassword()
     openssl rsa -aes256 -in $keyFile >&1
 }
 
+# removes password from a private key file
 function removePassword()
 {
     if [[ $# == 0 || "$1" == "" ]]; then
@@ -116,6 +119,7 @@ function removePassword()
     openssl rsa -in $keyFile >&1
 }
 
+# generate a key file with the given length
 function generateKey()
 {
     if [[ $# == 0 || "$1" == "" ]]; then
