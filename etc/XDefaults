@@ -1,0 +1,35 @@
+*xterm*translations: #override\
+<Key>F1:        string("\033[1~") \n
+<Key>F2:        string("\033[2~") \n
+<Key>F3:        string("\033[3~") \n
+<Key>F4:        string("\033[4~") \n
+
+
+xterm*faceName: -*-lucidatypewriter-*-*-*-*-12-*-*-*-*-*-*-*
+!!xterm*faceName: -*-courier-*-*-*-*-14-*-*-*-*-*-*-*
+xterm*charClass: 33:48,35-38:48,39:43,42-47:48,58-59:48,61:48,63-64:48,126:48
+emacs*font: -*-lucidatypewriter-*-*-*-*-12-*-*-*-*-*-*-*
+
+!!Xft.dpi:        96
+!!Xft.hintstyle:  hintslight
+
+
+Xft.antialias:  true
+Xft.rgba:       rgb
+Xft.hinting:    full
+
+
+xterm*geometry:           80x25
+xterm*dynamicColors:      true
+xterm*utf8:               2
+xterm*eightBitInput:      true
+xterm*saveLines:          4096
+xterm*scrollTtyKeypress:  true
+xterm*scrollTtyOutput:    false
+xterm*scrollBar:          true
+xterm*rightScrollBar:     true
+xterm*loginShell:         true
+xterm*jumpScroll:         true
+xterm*multiScroll:        true
+xterm*toolBar:            false
+

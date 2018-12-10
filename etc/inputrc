@@ -1,0 +1,10 @@
+$if Bash
+"\e[1~": "pg $USER\n"
+#"\e[2~": "\n"
+$endif
+
+#Fix Ctrl-Left and Ctrl-Right
+"\e[1;5C": forward-word
+"\e[1;5D": backward-word
+
+
