@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 
+# extracts public key from private key
 function extractPublicRSAKey()
 {
     if [[ $# == 0 || "$1" == "" ]]; then
-        echo "Usage: crypt.sh public /path/to/privateKey.file"
+        echo "Usage: crypt.sh public privateKey.pem > publicKey.txt"
         exit 1
     fi
     keyFile=$1
@@ -11,10 +12,11 @@ function extractPublicRSAKey()
     openssl rsa -in "$keyFile" -pubout
 }
 
+# creates a private rsa key
 function createRSAKey()
 {
     if [[ $# == 0 || "$1" == "" ]]; then
-        echo "Usage: crypt.sh create /path/to/privateKey.pem"
+        echo "Usage: crypt.sh create privateKey.pem"
         exit 1
     fi
     keyFile=$1
@@ -27,6 +29,8 @@ function createRSAKey()
     echo "Generated $keyFile"
 }
 
+# encrypts the input, either with symmetric key or private or public key
+# notice that when using rsa, you can't encrypt too much data
 function encryptData()
 {
     if [[ $# == 0 || "$1" == "" ]]; then
@@ -42,10 +46,11 @@ function encryptData()
             openssl enc -aes-256-cbc -salt -base64 -pass file:$keyFile <&0 >&1
         fi
     else
-        echo "Usage: crypt.sh enc [privateKey.file|publicKey.file|key.file] < input > output"
+        echo "Usage: crypt.sh encrypt [privateKey.file|publicKey.file|key.file] < input > output"
     fi
 }
 
+# decrypts the input, either with symmetric key or private or public key
 function decryptData()
 {
     if [[ $# == 0 || "$1" == "" ]]; then
@@ -61,14 +66,15 @@ function decryptData()
             openssl enc -d -aes-256-cbc -base64 -pass file:$keyFile <&0 >&1
         fi
     else
-        echo "Usage: crypt.sh dec [privateKey.file|key.file] < input > output"
+        echo "Usage: crypt.sh decrypt [privateKey.pem|key.file] < input > output"
     fi
 }
 
+# signs the data using private key
 function signData()
 {
     if [[ $# == 0 || "$1" == "" ]]; then
-        echo "Usage: crypt.sh sign /path/to/privateKey.file"
+        echo "Usage: crypt.sh sign privateKey.pem < input > signature.file"
         exit 1
     fi
     keyFile=$1
@@ -79,7 +85,7 @@ function signData()
 function verifyData()
 {
     if [[ $# == 0 || "$1" == "" ]]; then
-        echo "Usage: crypt.sh verify /path/to/privateKey.file "
+        echo "Usage: crypt.sh verify publicKey.txt signature.file < input"
         exit 1
     fi
     keyFile="$1"
@@ -91,7 +97,7 @@ function verifyData()
 function addPassword()
 {
     if [[ $# == 0 || "$1" == "" ]]; then
-        echo "Usage: crypt.sh add /path/to/privateKey.file "
+        echo "Usage: crypt.sh add privateKey.pem > protected.privateKey.pem"
         exit 1
     fi
     keyFile=$1
@@ -102,7 +108,7 @@ function addPassword()
 function removePassword()
 {
     if [[ $# == 0 || "$1" == "" ]]; then
-        echo "Usage: crypt.sh remove /path/to/privateKey.file "
+        echo "Usage: crypt.sh remove protected.privateKey.pem > privateKey.pem"
         exit 1
     fi
     keyFile=$1
@@ -113,7 +119,7 @@ function removePassword()
 function generateKey()
 {
     if [[ $# == 0 || "$1" == "" ]]; then
-        echo "Usage: crypt.sh (gen)erate 32"
+        echo "Usage: crypt.sh (gen)erate 32 > key.file"
         exit 1
     fi
     openssl rand -base64 $1
