@@ -1,6 +1,8 @@
 # Purpose of this Project
 A set of scripts, documentation, programs for a productive development environment.
 
+# Bash Environment
+
 ## Internals
 `~/environment/` directory contains where this project resides. In order to use it
 you need to include the following in your `~/.profile` or `~/.bashrc` files:
