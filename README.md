@@ -1,6 +1,12 @@
 # Purpose of this Project
 A set of scripts, documentation, programs for a productive development environment.
 
+# Environments
+* [Windows](docs/windows.md)
+* [Linux](docs/linux.md)
+* [Mac](docs/mac.md)
+* [Misc](docs/misc.md)
+
 # Bash Environment
 
 ## Internals
