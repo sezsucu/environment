@@ -3,9 +3,9 @@ A set of scripts, documentation, programs for a productive development environme
 
 * [How to install](#how-to-install)
   * [Aliases](#aliases)
-  * [Finding files](#variables-defined-in-libsh)
+  * [Files and directories](#files-and-directories)
   * [Data directories and files](#data-directories-and-files)
-  * [Customizations](#customizations)
+  * [Compressing and Decompressing Files](#compressingdecompressing-files)
   * [Local Time Zone](#local-time-zone)
 * [Windows](docs/windows.md)
 * [Linux](docs/linux.md)
@@ -56,9 +56,7 @@ This value is being used in various locations for display purposes. **By default
 such as the bash prompt. `LOCAL_TIME_ZONE` is also used in certain functions due to limitations
 of platforms.
 
-## Important commands
-
-### Aliases
+## Aliases
 
 * `lsl`: detailed list of files
 * `lsa`: non-detailed list of files
@@ -84,15 +82,15 @@ of platforms.
 * `responseHeaders`: shows reponse headers of a given url (only if curl is available)
 * `allHeaders`: shows all HTTP headers of a given url (only if curl is available)
 
-### Files and directories
+## Files and directories
 
-#### Finding files by name
+### Finding files by name
 ```bash
 # find all cc files (does not follow symbolic links)
 findFiles '*.cc'
 ```
 
-#### Finding files that contain some text
+### Finding files that contain some text
 **findGrep and findGrepi skips the following directories: .git, .idea, .svn subdirectories**
 ```bash
 # find all *.sh files that contain word Environment
@@ -101,13 +99,13 @@ findGrep Environment '*.sh'
 findGrepi Environment '*.sh'
 ```
 
-#### Removing files
+### Removing files
 ```bash
 # remove all class files
 removeFiles '*.class'
 ```
 
-#### Displaying the directory tree structure
+### Displaying the directory tree structure
 Display the directory structure for the given path or the current directory in a nice visual way.
 ```bash
 dirTree.sh .
@@ -121,11 +119,11 @@ dirTree.sh .
 ..\ emacs
 ```
 
-#### Finding large files
+### Finding large files
 Displays the top 15 directories in terms of disk space they occupy.
 Only the direct files are considered, not the contents of its sub directories.
 
-#### Finding recently modified files
+### Finding recently modified files
 Finds recently modified files within a given time frame from now. By default time unit is minutes,
 so below it finds recently modified files within the last 2 hours:
 ```bash
@@ -149,7 +147,7 @@ findRecentlyModified.sh 2h '*.cc' # all cc files modified within the last 2 hour
 
 By default this tool ignores a number of directories documented in the file.
 
-#### Finding oversize files
+### Finding oversize files
 Finds files which are larger than the given size. By default kilobyte is used if no explicit size unit is provided.
 For example below it finds all files that are larger than 20 kilobytes.
 ```bash
@@ -169,8 +167,8 @@ You can provide a second argument to narrow the search, e.g. only log files larg
 findOverSize.sh 2G "*.log"
 ```
 
-### Compressing/Decompressing files
-#### pack
+## Compressing and decompressing files
+### pack
 Compresses a given file or a set of files based on the compression method used.
 
 ```bash
@@ -183,7 +181,7 @@ pack compressed.bz2 huge.txt
 pack compressed.gz huge.txt
 ```
 
-#### unpack
+### unpack
 Decompresses an archive file.
 
 ```bash
@@ -195,20 +193,20 @@ unpack compressed.bz2
 unpack compressed.gz
 ```
 
-### Time functions
-#### toEpoch
+## Time functions
+### toEpoch
 Convert a date to epoch number.
 ```bash
 toEpoch `date`
 ```
 
-#### fromEpoch
+### fromEpoch
 Converts an epoch number to date
 ```bash
 fromEpoch 1543786787
 ```
 
-### Encryption/Decryption
+## Encryption/Decryption
 You can use **crypt.sh** script to encrypt/decrypt data.
 
 #### To create a private key
@@ -284,7 +282,7 @@ crypt.sh encrypt < bigMesg.txt > enc.txt
 crypt.sh decrypt < enc.txt > bigMesg.txt
 ```
 
-### Displaying system and environment information
+## Displaying system and environment information
 Displays general system information which includes
 
 * Platform: Cygwin, Linux, Mac, WSL (Linux on Windows)
@@ -303,7 +301,7 @@ Displays general system information which includes
 * Kernel version
 * For each file system available space and use percentage
 
-### manageVars.sh
+## manageVars.sh
 Used to manage variables in bashVars.sh file. This file is a set of key value pairs where
 each key is a variable exported by default. For example, say there is a long host name for a dev
 machine you regularly use. Instead of typing the host name everytime, you can set dev to this
