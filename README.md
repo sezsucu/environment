@@ -4,9 +4,11 @@ A set of scripts, documentation, programs for a productive development environme
 * [How to install](#how-to-install)
   * [Aliases](#aliases)
   * [Files and directories](#files-and-directories)
-  * [Data directories and files](#data-directories-and-files)
-  * [Compressing and Decompressing Files](#compressingdecompressing-files)
-  * [Local Time Zone](#local-time-zone)
+  * [Compressing and Decompressing Files](#compressing-and-decompressing-files)
+  * [Encryption/Decryption](#encryptiondecryption)
+  * [Displaying system and environment information](#displaying-system-and-environment-information)
+  * [Managing simple bash variables](#managing-simple-bash-variables)
+  * [Time functions](#time-functions)
 * [Windows](docs/windows.md)
 * [Linux](docs/linux.md)
 * [Mac](docs/mac.md)
@@ -61,7 +63,6 @@ of platforms.
 * `lsl`: detailed list of files
 * `lsa`: non-detailed list of files
 * `sane`: use it when your screen is messed up, can't see what you type
-* `largeFiles`: lists the top 15 largest files
 * `resetShell`: reread the start.sh, so changes are reflected
 * `..`: go one directory up
 * `dus`: how much current directory occupies in size
@@ -119,12 +120,36 @@ dirTree.sh .
 ..\ emacs
 ```
 
-### Finding large files
+### Finding large files and directories
+#### largeDirs.sh
 Displays the top 15 directories in terms of disk space they occupy.
 Only the direct files are considered, not the contents of its sub directories.
 
+#### largeFiles (function)
+Lists the top 15 largest files.
+
+### Finding oversize files
+**findOverSize.sh** finds files which are larger than the given size. By default kilobyte is used if no explicit size unit is provided.
+For example below it finds all files that are larger than 20 kilobytes.
+```bash
+findOverSize.sh 20 # 20 kilobytes
+```
+You can use other size units, namely g or G for gigabytes, m or M for megabytes, k or K for kilobytes.
+```bash
+findOverSize.sh 20K # 20 kilobytes
+findOverSize.sh 20k # 20 kilobytes
+findOverSize.sh 20m # 20 megabytes
+findOverSize.sh 20M # 20 megabytes
+findOverSize.sh 1g # 1 gigabytes
+findOverSize.sh 1G # 1 gigabytes
+```
+You can provide a second argument to narrow the search, e.g. only log files large than 2GB.
+```bash
+findOverSize.sh 2G "*.log"
+```
+
 ### Finding recently modified files
-Finds recently modified files within a given time frame from now. By default time unit is minutes,
+**findRecentlyModified.sh** finds recently modified files within a given time frame from now. By default time unit is minutes,
 so below it finds recently modified files within the last 2 hours:
 ```bash
 findRecentlyModified.sh 120
@@ -146,26 +171,6 @@ findRecentlyModified.sh 2h '*.cc' # all cc files modified within the last 2 hour
 ```
 
 By default this tool ignores a number of directories documented in the file.
-
-### Finding oversize files
-Finds files which are larger than the given size. By default kilobyte is used if no explicit size unit is provided.
-For example below it finds all files that are larger than 20 kilobytes.
-```bash
-findOverSize.sh 20 # 20 kilobytes
-```
-You can use other size units, namely g or G for gigabytes, m or M for megabytes, k or K for kilobytes.
-```bash
-findOverSize.sh 20K # 20 kilobytes
-findOverSize.sh 20k # 20 kilobytes
-findOverSize.sh 20m # 20 megabytes
-findOverSize.sh 20M # 20 megabytes
-findOverSize.sh 1g # 1 gigabytes
-findOverSize.sh 1G # 1 gigabytes
-```
-You can provide a second argument to narrow the search, e.g. only log files large than 2GB.
-```bash
-findOverSize.sh 2G "*.log"
-```
 
 ## Compressing and decompressing files
 ### pack
@@ -191,19 +196,6 @@ unpack compressed.tgz
 unpack compressed.zip
 unpack compressed.bz2
 unpack compressed.gz
-```
-
-## Time functions
-### toEpoch
-Convert a date to epoch number.
-```bash
-toEpoch `date`
-```
-
-### fromEpoch
-Converts an epoch number to date
-```bash
-fromEpoch 1543786787
 ```
 
 ## Encryption/Decryption
@@ -301,8 +293,9 @@ Displays general system information which includes
 * Kernel version
 * For each file system available space and use percentage
 
-## manageVars.sh
-Used to manage variables in bashVars.sh file. This file is a set of key value pairs where
+## Managing simple bash variables
+**manageVars.sh** is used to manage variables in **$ENV_DATA_DIR\bash\bashVars.sh** file.
+This file is a set of key value pairs where
 each key is a variable exported by default. For example, say there is a long host name for a dev
 machine you regularly use. Instead of typing the host name everytime, you can set dev to this
 dev machine's host name. This way you can quickly ssh by simply doing `ssh $dev` assuming you
@@ -314,6 +307,18 @@ set dev to the machine's host name. This file is automatically included in each 
 
 **Keep the var names and var values simple**
 
+## Time functions
+### toEpoch
+Convert a date to epoch number.
+```bash
+toEpoch `date`
+```
+
+### fromEpoch
+Converts an epoch number to date
+```bash
+fromEpoch 1543786787
+```
 
 
 

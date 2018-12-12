@@ -18,7 +18,7 @@ alias ..="cd .."
 alias dus='du -sh'
 
 #displays top 15 largest files
-alias largeFiles='find . -ls | awk "{printf \$7; \$1 = \"\"; \$2 = \"\"; \$3 = \"\"; \$4 = \"\"; \$6 = \"\"; \$7 = \"\"; print \$0;}" | sort -nr | tr -s " " | head -15 | awk "function toDisplay(x) { split( \"b K M G T\", v ); s = 1; while( x >= 1024 ){ x /= 1024; s++; } return sprintf(\"%d%s\", int(x), v[s]); } {printf toDisplay(\$1); \$1 = \"\"; print \$0;}" '
+alias largeFiles='find . \( -path .\/.git -o -path .\/.idea -o -path .\/.svn -o -path .\/.DS_Store \) -prune -o -type f -ls | awk "{printf \$7; \$1 = \"\"; \$2 = \"\"; \$3 = \"\"; \$4 = \"\"; \$6 = \"\"; \$7 = \"\"; print \$0;}" | sort -nr | tr -s " " | head -15 | awk "function toDisplay(x) { split( \"b K M G T\", v ); s = 1; while( x >= 1024 ){ x /= 1024; s++; } return sprintf(\"%d%s\", int(x), v[s]); } {printf toDisplay(\$1); \$1 = \"\"; print \$0;}" '
 
 # make sure we don't mess things up
 alias cp='cp -i'
