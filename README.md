@@ -48,8 +48,8 @@ $ENV_HOME_DIR/bash/settings.sh
 ### Local time zone
 By default, `settings.sh` will attempt to figure out the local time zone, but if it fails
 it will use the default value of `LOCAL_TIME_ZONE` which is `Etc/UTC`.
-This value is being used in various locations for display purposes. By default, we set `TZ` to
-`Etc/UTC` and prefer to work with UTC mostly. We use the local time zone in certain locations,
+This value is being used in various locations for display purposes. **By default, we set `TZ` to
+`Etc/UTC` and prefer to work with UTC mostly**. We use the local time zone in certain locations,
 such as the bash prompt. `LOCAL_TIME_ZONE` is also used in certain functions due to limitations
 of platforms.
 
