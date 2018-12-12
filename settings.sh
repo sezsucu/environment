@@ -3,7 +3,7 @@
 # The default, in case we can't figure out the real local time zone
 if [[ -z "${TZ}" ]]; then
     LOCAL_TIME_ZONE="Etc/UTC"
-else
+elif [[ -z "${LOCAL_TIME_ZONE}" ]]; then
     LOCAL_TIME_ZONE=$TZ
 fi
 if [ -f /etc/timezone ]; then

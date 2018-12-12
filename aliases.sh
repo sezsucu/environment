@@ -31,11 +31,11 @@ alias ps='ps aux'
 #paths
 alias paths='echo -e ${PATH//:/\\n}'
 # programs
-alias emacs='emacs --load ${ENV_HOME_DIR}/etc/emacs/config.el'
+alias emacs="emacs --load ${ENV_HOME_DIR}/etc/emacs/config.el"
 
-alias localDate='TZ=$LOCAL_TIME_ZONE date  "+$ISO_DATE_FMT"'
-alias utcDate='TZ=Etc/UTC date -u "+$ISO_DATE_FMT"'
-alias localTime='TZ=$LOCAL_TIME_ZONE date  "+%H:%M:%S"'
+alias localDate="TZ=$LOCAL_TIME_ZONE date  '+$ISO_DATE_FMT'"
+alias utcDate="TZ=Etc/UTC date -u '+$ISO_DATE_FMT'"
+alias localTime="TZ=$LOCAL_TIME_ZONE date  '+%H:%M:%S'"
 
 # display pid too
 alias jobs='jobs -l'

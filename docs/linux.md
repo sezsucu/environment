@@ -8,7 +8,12 @@ sudo apt-get install git
 sudo apt-get install python
 sudo apt-get install xdg-utils
 sudo apt-get install curl
-sudo apt install unzip
+sudo apt-get install unzip
+```
+
+## Packages nice to have
+```bash
+sudo apt-get install g++
 ```
 
 ## Install Apps

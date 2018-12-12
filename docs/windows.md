@@ -35,6 +35,8 @@ installed:
 * openssl
 * unzip (Info-Zip)
 * zip (Info-Zip)
+* g++
+* procps-ng (top, uptime etc...)
 
 ## Java
 * [Set the JAVA_HOME](https://docs.oracle.com/cd/E19182-01/820-7851/inst_cli_jdk_javahome_t/)

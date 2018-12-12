@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# included from ~/.bashrc or ~/.profile or ~/.bash_profile
+
 # unfortunately because of a bug I had to disable
 # set -u
 

@@ -27,7 +27,6 @@ If you pass it without quote, bash will expand *~ and pass the matching files to
 '*~'.
 
 ### Environment variables
-
 * **`ENV_HOME_DIR`**: where this project resides
 * **`ENV_DATA_DIR`**: always defined as `~/.envData`
 
