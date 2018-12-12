@@ -1,13 +1,13 @@
 # Purpose of this Project
 A set of scripts, documentation, programs for a productive development environment.
 
-* [Install](#install)
+* [Install](#how-to-install)
 * [Windows](docs/windows.md)
 * [Linux](docs/linux.md)
 * [Mac](docs/mac.md)
 * [Misc](docs/misc.md)
 
-## [How to install](#install)
+## How to install
 `~/environment/` directory contains where this project resides. In order to use it
 you need to include the following in your `~/.profile` or `~/.bashrc` files:
 
