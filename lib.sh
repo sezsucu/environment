@@ -88,7 +88,8 @@ function findFiles()
     if [[ $# == 0 ]]; then
         echo "Usage: findFiles '*~'"
     else
-        eval find -L . -name \"$1\"
+        #eval find -L . -name \"$1\"
+        eval find . -name \"$1\"
         #eval find . -name \"$1\" -ls | awk "{\$1 = \"\"; \$2 = \"\"; \$3 = \"\"; \$4 = \"\"; \$6 = \"\"; print \$0;}" | tr -s " " ;
     fi
 }
@@ -103,7 +104,7 @@ function findExecute()
 
 function findGrepExecute()
 {
-    eval find -L . \\\( -path .\/.git -o -path .\/.idea -o -path .\/.svn -o -path .\/.DS_Store \\\) -prune -o -type f -name \"${1:-}\" -exec ${2:-ls} '{}' \\\+ ;
+    eval find . \\\( -path .\/.git -o -path .\/.idea -o -path .\/.svn -o -path .\/.DS_Store \\\) -prune -o -type f -name \"${1:-}\" -exec ${2:-ls} '{}' \\\+ ;
     #eval find . -type f -name \"${1:-}\" -exec ${2:-ls} '{}' \\\; ;
 }
 

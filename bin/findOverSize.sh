@@ -32,7 +32,7 @@ elif [[ ! "${sizeStr:length:1}" =~ [kmg] ]]; then
     exit 1
 fi
 if [ "$ENV_PLATFORM" = "Mac" ]; then
-    eval find -L . \\\( -name ".git" -o -name ".idea" \\\) -prune -o -type f -name \"${2:-*}\" -size +$sizeStr -print0 | xargs -n1 -0 ls -lhG;
+    eval find . \\\( -name ".git" -o -name ".idea" \\\) -prune -o -type f -name \"${2:-*}\" -size +$sizeStr -print0 | xargs -n1 -0 ls -lhG;
 else
-    eval find -L . \\\( -name ".git" -o -name ".idea" \\\) -prune -o -type f -name \"${2:-*}\" -size +$sizeStr -print0 | xargs --no-run-if-empty -n1 -0 ls -lh --color;
+    eval find . \\\( -name ".git" -o -name ".idea" \\\) -prune -o -type f -name \"${2:-*}\" -size +$sizeStr -print0 | xargs --no-run-if-empty -n1 -0 ls -lh --color;
 fi
