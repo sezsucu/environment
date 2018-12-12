@@ -30,6 +30,8 @@ If you pass it without quote, bash will expand *~ and pass the matching files to
 
 * **`ENV_HOME_DIR`**: where this project resides
 * **`ENV_DATA_DIR`**: always defined as `~/.envData`
+
+### Variables defined in lib.sh
 * **`ENV_ARCH`**: either `32` or `64` depending on the architecture of the CPU
 * **`ENV_PLATFORM`**: `Mac` or `Linux` or `Cygwin` or `WSL`
 

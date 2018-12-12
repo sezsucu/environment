@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # unfortunately because of a bug I had to disable
 # set -u
 

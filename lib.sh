@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
 # Mac, Linux, Cygwin, WSL
-export ENV_PLATFORM="Linux"
+ENV_PLATFORM="Linux"
 
 # 32 or 64
-export ENV_ARCH="32"
+ENV_ARCH="32"
 unameStr=`uname`
 if [[ "$unameStr" = "Darwin" ]]; then
     ENV_PLATFORM="Mac";
