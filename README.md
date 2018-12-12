@@ -201,27 +201,27 @@ unpack compressed.gz
 ## Encryption/Decryption
 You can use **crypt.sh** script to encrypt/decrypt data.
 
-#### To create a private key
+**To create a private key**
 ```bash
 crypt.sh create privateKey.pem
 ```
 
-#### To extract the public key from the private key
+**To extract the public key from the private key**
 ```bash
 crypt.sh public privateKey.pem > publicKey.txt
 ```
 
-#### To encrypt a small size file using the private key
+**To encrypt a small size file using the private key**
 ```bash
 crypt.sh encrypt privateKey.pem < shortMesg.txt > shortMesg.enc.bin
 ```
 
-#### To decrypt a small size encrypted file using the private key
+**To decrypt a small size encrypted file using the private key**
 ```bash
 crypt.sh decrypt privateKey.pem < shortMesg.enc.bin > shortMesg.dec.txt
 ```
 
-#### To encrypt a small size file using the public key
+**To encrypt a small size file using the public key**
 ```bash
 crypt.sh encrypt publicKey.txt < shortMesg.txt > shortMesg.pub.enc.bin
 # You can decrypt this file only with a privateKey
@@ -229,47 +229,47 @@ crypt.sh decrypt privateKey.pem < shortMesg.pub.enc.bin > shortMesg.dec.txt
 ```
 You can't encrypt with a private key and decrypt with a public key using crypt.sh
 
-#### Sign a data file with your private key
+**Sign a data file with your private key**
 ```bash
 crypt.sh sign privateKey.pem < test.txt > signature.file
 ```
 
-#### Verify a signature of data file with a public key
+**Verify a signature of data file with a public key**
 ```bash
 crypt.sh verify publicKey.txt signature.file < test.txt
 ```
 
-#### Add a password to a private key file
+**Add a password to a private key file**
 ```bash
 crypt.sh add privateKey.pem > protectedPrivate.pem
 ```
 
-#### Remove a password from a password protected private key file
+**Remove a password from a password protected private key file**
 ```bash
 crypt.sh remove protectedPrivate.pem > privateKey.pem
 ```
 
-#### Generate a secret key
+**Generate a secret key**
 ```bash
 crypt.sh generate 32 > secretKey.txt
 ```
 
-#### Encrypt a big message using a secret key file
+**Encrypt a big message using a secret key file**
 ```bash
 crypt.sh encrypt secretKey.txt < bigMesg.txt > enc.txt
 ```
 
-#### Decrypt an encrypted message using a secret key file
+**Decrypt an encrypted message using a secret key file**
 ```bash
 crypt.sh decrypt secretKey.txt < enc.txt > bigMesg.txt
 ```
 
-#### Encrypt a big message using a password
+**Encrypt a big message using a password**
 ```bash
 crypt.sh encrypt < bigMesg.txt > enc.txt
 ```
 
-#### Decrypt an encrypted message using a password
+**Decrypt an encrypted message using a password**
 ```bash
 crypt.sh decrypt < enc.txt > bigMesg.txt
 ```
