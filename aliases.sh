@@ -1,5 +1,26 @@
 #!/usr/bin/env bash
 
+case $ENV_PLATFORM in
+    Mac)
+        alias ls='ls -FG'
+        alias lsa='ls -AFGr'
+        alias lsl='ls -AslhGr'
+
+        alias duh='du -h -d 1'
+        alias df='df -h'
+        # more Linux-like stat
+        alias stat='stat -x -t "%Y-%m-%d %T.000000000 %z"'
+        ;;
+    *)
+        alias ls='ls -F --color'
+        alias lsa='ls -AF --color'
+        alias lsl='ls -Aslh --color'
+
+        alias duh='du -h --max-depth=1'
+        alias df='df -hT'
+        ;;
+esac
+
 # [Aliases]
 # to sanitize the terminal
 alias sane="stty sane"
@@ -52,20 +73,3 @@ else
     alias download='echo "No wget or curl found"'
 fi
 
-if [ "$ENV_PLATFORM" = "Mac" ]; then
-    alias ls='ls -FG'
-    alias lsa='ls -AFGr'
-    alias lsl='ls -AslhGr'
-
-    alias duh='du -h -d 1'
-    alias df='df -h'
-    # more Linux-like stat
-    alias stat='stat -x -t "%Y-%m-%d %T.000000000 %z"'
-else
-    alias ls='ls -F --color'
-    alias lsa='ls -AF --color'
-    alias lsl='ls -Aslh --color'
-
-    alias duh='du -h --max-depth=1'
-    alias df='df -hT'
-fi
