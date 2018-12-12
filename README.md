@@ -1,7 +1,12 @@
 # Purpose of this Project
 A set of scripts, documentation, programs for a productive development environment.
 
-* [Install](#how-to-install)
+* [How to install](#how-to-install)
+  * [Aliases](#aliases)
+  * [Finding files](#variables-defined-in-libsh)
+  * [Data directories and files](#data-directories-and-files)
+  * [Customizations](#customizations)
+  * [Local Time Zone](#local-time-zone)
 * [Windows](docs/windows.md)
 * [Linux](docs/linux.md)
 * [Mac](docs/mac.md)
@@ -43,7 +48,7 @@ $ENV_HOME_DIR/bash/aliases.sh
 $ENV_HOME_DIR/bash/settings.sh
 ```
 
-### Local time zone
+### Local Time Zone
 By default, `settings.sh` will attempt to figure out the local time zone, but if it fails
 it will use the default value of `LOCAL_TIME_ZONE` which is `Etc/UTC`.
 This value is being used in various locations for display purposes. **By default, we set `TZ` to
@@ -79,24 +84,93 @@ of platforms.
 * `responseHeaders`: shows reponse headers of a given url (only if curl is available)
 * `allHeaders`: shows all HTTP headers of a given url (only if curl is available)
 
-### Finding files
-**findGrep and findGrepi skips the following directories: .git, .idea, .svn subdirectories**
+### Files and directories
+
+#### Finding files by name
 ```bash
 # find all cc files (does not follow symbolic links)
 findFiles '*.cc'
+```
+
+#### Finding files that contain some text
+**findGrep and findGrepi skips the following directories: .git, .idea, .svn subdirectories**
+```bash
 # find all *.sh files that contain word Environment
 findGrep Environment '*.sh'
 # find all *.sh files that contain word environment in a case-insensitive manner
 findGrepi Environment '*.sh'
 ```
 
-### Removing files
+#### Removing files
 ```bash
 # remove all class files
 removeFiles '*.class'
 ```
 
-### pack
+#### Displaying the directory tree structure
+Display the directory structure for the given path or the current directory in a nice visual way.
+```bash
+dirTree.sh .
+.
+.\ .git (ignored)
+.| .idea
+..\ markdown-navigator
+.| bin
+.| docs
+.| etc
+..\ emacs
+```
+
+#### Finding large files
+Displays the top 15 directories in terms of disk space they occupy.
+Only the direct files are considered, not the contents of its sub directories.
+
+#### Finding recently modified files
+Finds recently modified files within a given time frame from now. By default time unit is minutes,
+so below it finds recently modified files within the last 2 hours:
+```bash
+findRecentlyModified.sh 120
+```
+You can use other time units, namely d or D for days, m or M for minutes and h or H for hours.
+```bash
+findRecentlyModified.sh 120m # 120 minutes
+findRecentlyModified.sh 120M # 120 minutes
+findRecentlyModified.sh 120 # 120 minutes
+findRecentlyModified.sh 2H # 2 hours
+findRecentlyModified.sh 2h # 2 hours
+findRecentlyModified.sh 1d # 1 day
+findRecentlyModified.sh 1D # 1 day
+```
+
+To find specific file names provide a second argument
+```bash
+findRecentlyModified.sh 2h '*.cc' # all cc files modified within the last 2 hours
+```
+
+By default this tool ignores a number of directories documented in the file.
+
+#### Finding oversize files
+Finds files which are larger than the given size. By default kilobyte is used if no explicit size unit is provided.
+For example below it finds all files that are larger than 20 kilobytes.
+```bash
+findOverSize.sh 20 # 20 kilobytes
+```
+You can use other size units, namely g or G for gigabytes, m or M for megabytes, k or K for kilobytes.
+```bash
+findOverSize.sh 20K # 20 kilobytes
+findOverSize.sh 20k # 20 kilobytes
+findOverSize.sh 20m # 20 megabytes
+findOverSize.sh 20M # 20 megabytes
+findOverSize.sh 1g # 1 gigabytes
+findOverSize.sh 1G # 1 gigabytes
+```
+You can provide a second argument to narrow the search, e.g. only log files large than 2GB.
+```bash
+findOverSize.sh 2G "*.log"
+```
+
+### Compressing/Decompressing files
+#### pack
 Compresses a given file or a set of files based on the compression method used.
 
 ```bash
@@ -109,7 +183,7 @@ pack compressed.bz2 huge.txt
 pack compressed.gz huge.txt
 ```
 
-### unpack
+#### unpack
 Decompresses an archive file.
 
 ```bash
@@ -121,19 +195,21 @@ unpack compressed.bz2
 unpack compressed.gz
 ```
 
-### toEpoch
+### Time functions
+#### toEpoch
 Convert a date to epoch number.
 ```bash
 toEpoch `date`
 ```
 
-### fromEpoch
+#### fromEpoch
 Converts an epoch number to date
 ```bash
 fromEpoch 1543786787
 ```
 
-### crypt.sh
+### Encryption/Decryption
+You can use **crypt.sh** script to encrypt/decrypt data.
 
 #### To create a private key
 ```bash
@@ -208,7 +284,7 @@ crypt.sh encrypt < bigMesg.txt > enc.txt
 crypt.sh decrypt < enc.txt > bigMesg.txt
 ```
 
-### displayEnv.sh
+### Displaying system and environment information
 Displays general system information which includes
 
 * Platform: Cygwin, Linux, Mac, WSL (Linux on Windows)
@@ -227,13 +303,6 @@ Displays general system information which includes
 * Kernel version
 * For each file system available space and use percentage
 
-### dirTree.sh
-Display the directory structure for the given path or the current directory in a nice visual way.
-
-### largeDirs.sh
-Displays the top 15 directories in terms of disk space they occupy.
-Only the direct files are considered, not the contents of its sub directories.
-
 ### manageVars.sh
 Used to manage variables in bashVars.sh file. This file is a set of key value pairs where
 each key is a variable exported by default. For example, say there is a long host name for a dev
@@ -247,49 +316,6 @@ set dev to the machine's host name. This file is automatically included in each 
 
 **Keep the var names and var values simple**
 
-### findRecentlyModified.sh
-Finds recently modified files within a given time frame from now. By default time unit is minutes,
-so below it finds recently modified files within the last 2 hours:
-```bash
-findRecentlyModified.sh 120
-```
-You can use other time units, namely d or D for days, m or M for minutes and h or H for hours.
-```bash
-findRecentlyModified.sh 120m # 120 minutes
-findRecentlyModified.sh 120M # 120 minutes
-findRecentlyModified.sh 120 # 120 minutes
-findRecentlyModified.sh 2H # 2 hours
-findRecentlyModified.sh 2h # 2 hours
-findRecentlyModified.sh 1d # 1 day
-findRecentlyModified.sh 1D # 1 day
-```
-
-To find specific file names provide a second argument
-```bash
-findRecentlyModified.sh 2h '*.cc' # all cc files modified within the last 2 hours
-```
-
-By default this tool ignores a number of directories documented in the file.
-
-#### findOverSize.sh
-Finds files which are larger than the given size. By default kilobyte is used if no explicit size unit is provided.
-For example below it finds all files that are larger than 20 kilobytes.
-```bash
-findOverSize.sh 20 # 20 kilobytes
-```
-You can use other size units, namely g or G for gigabytes, m or M for megabytes, k or K for kilobytes.
-```bash
-findOverSize.sh 20K # 20 kilobytes
-findOverSize.sh 20k # 20 kilobytes
-findOverSize.sh 20m # 20 megabytes
-findOverSize.sh 20M # 20 megabytes
-findOverSize.sh 1g # 1 gigabytes
-findOverSize.sh 1G # 1 gigabytes
-```
-You can provide a second argument to narrow the search, e.g. only log files large than 2GB.
-```bash
-findOverSize.sh 2G "*.log"
-```
 
 
 
