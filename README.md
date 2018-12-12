@@ -82,6 +82,7 @@ of platforms.
 * `allHeaders`: shows all HTTP headers of a given url (only if curl is available)
 
 ### finding files
+**findGrep and findGrepi skips the following directories: .git, .idea, .svn subdirectories**
 ```bash
 # find all cc files (does not follow symbolic links)
 findFiles '*.cc'

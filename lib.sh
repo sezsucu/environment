@@ -88,7 +88,6 @@ function findFiles()
     if [[ $# == 0 ]]; then
         echo "Usage: findFiles '*~'"
     else
-        #eval find -L . -name \"$1\"
         eval find . -name \"$1\"
         #eval find . -name \"$1\" -ls | awk "{\$1 = \"\"; \$2 = \"\"; \$3 = \"\"; \$4 = \"\"; \$6 = \"\"; print \$0;}" | tr -s " " ;
     fi
