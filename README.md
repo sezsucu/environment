@@ -83,7 +83,7 @@ of platforms.
 
 ### finding files
 ```bash
-# find all cc files (follows symbolic links)
+# find all cc files (does not follow symbolic links)
 findFiles '*.cc'
 # find all *.sh files that contain word Environment
 findGrep Environment '*.sh'
