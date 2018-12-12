@@ -81,7 +81,7 @@ of platforms.
 * `responseHeaders`: shows reponse headers of a given url (only if curl is available)
 * `allHeaders`: shows all HTTP headers of a given url (only if curl is available)
 
-### finding files
+### Finding files
 **findGrep and findGrepi skips the following directories: .git, .idea, .svn subdirectories**
 ```bash
 # find all cc files (does not follow symbolic links)
@@ -92,7 +92,7 @@ findGrep Environment '*.sh'
 findGrepi Environment '*.sh'
 ```
 
-### removing files
+### Removing files
 ```bash
 # remove all class files
 removeFiles '*.class'
