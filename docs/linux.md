@@ -9,6 +9,7 @@ sudo apt-get install python
 sudo apt-get install xdg-utils
 sudo apt-get install curl
 sudo apt-get install unzip
+sudo apt-get install tmux
 ```
 
 ## Packages nice to have
