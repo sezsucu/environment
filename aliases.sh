@@ -57,6 +57,7 @@ alias ps='ps aux'
 alias paths='echo -e ${PATH//:/\\n}'
 # programs
 alias emacs="emacs --load ${ENV_HOME_DIR}/etc/emacs/config.el"
+alias tmux="tmux -f $ENV_HOME_DIR/etc/tmux.conf"
 
 alias localDate="TZ=$LOCAL_TIME_ZONE date  '+$ISO_DATE_FMT'"
 alias utcDate="TZ=Etc/UTC date -u '+$ISO_DATE_FMT'"

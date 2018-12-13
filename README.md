@@ -102,7 +102,7 @@ findGrepi Environment '*.sh'
 
 ### Removing files
 ```bash
-# remove all class files
+# remove all class files recursively
 removeFiles '*.class'
 ```
 

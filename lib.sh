@@ -148,7 +148,7 @@ function getMd5()
     fi
 }
 
-# recursively delete all files specified with $1
+# recursively delete all files specified with $1 pattern
 function removeFiles()
 {
     if [ $# -eq 0 ]; then
