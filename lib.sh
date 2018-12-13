@@ -19,6 +19,24 @@ fi
 
 ISO_DATE_FMT='%Y-%m-%d %H:%M:%S %Z'
 
+function isAbsoluteDir()
+{
+    if [[ "$1" =~ ^\/ ]]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+function getRealPath()
+{
+    if isAbsoluteDir $1 ; then
+        echo $1
+    else
+        echo `cd "$1"; pwd`
+    fi
+}
+
 # tries to open a given path with the OS's default app
 function openResource()
 {
@@ -68,17 +86,6 @@ function prependPath()
     if [ -d "$2" -a "$hasThisPath" = "f" ]; then
 	    eval $1=\"$2\$\{$1:+':'\$$1\}\" && export $1 ;
     fi
-}
-
-function disableCore()
-{
-   ulimit -S -c 0
-}
-
-# on macs they are written to /cores
-function enableCore()
-{
-   ulimit -S -c unlimited
 }
 
 # find files/directories with a pattern in name:

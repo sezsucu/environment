@@ -63,7 +63,7 @@ of platforms.
 * `lsl`: detailed list of files
 * `lsa`: non-detailed list of files
 * `sane`: use it when your screen is messed up, can't see what you type
-* `resetShell`: reread the start.sh, so changes are reflected
+* `reloadEnv`: reread the start.sh, so changes are reflected
 * `..`: go one directory up
 * `dus`: how much current directory occupies in size
 * `duh`: this directory and its direct subdirectories reported
@@ -72,7 +72,6 @@ of platforms.
 * `utcDate`: time and date in UTC time zone
 * `localTime`: time in local time zone
 * `download`: fetch a given url and download it
-* `edel`: to remove emacs *~ files
 * `setTitle`: to set a custom title for the terminal window you are working on
 * `resetTitle`: to reset the title to its default value
 * `enableCore`: to enable cores again (by default it is off)
@@ -283,7 +282,7 @@ Displays general system information which includes
 * Whether IP is up or not
 * Whether HTTP is working or not
 * Whether DNS is working or not
-* IP address
+* IP address (not very reliable though)
 * If remotely connected, SSH client ip address
 * Distro name and version
 * CPU count, model and speed
@@ -318,6 +317,29 @@ toEpoch `date`
 Converts an epoch number to date
 ```bash
 fromEpoch 1543786787
+```
+
+## Snapshoting directories
+**snapshot.sh** allows you to take a snapshot (backup) of a directory you are working
+on. This is a rather crude version control system, where you simply keep copies
+of a directory. By default, it compresses the directory into a compressed archive,
+but you can tell snapshot.sh not to compress by passing `-n` flag.
+
+```bash
+# snapshots the current directory and saves a copy in the parent directory
+snapshot.sh
+snapshot.sh .
+snapshot.sh . ..
+# deletes all snapshots in the parent directory
+snapshot.sh -d . ..
+# lists all snapshots in the parent directory
+snapshot.sh -l . ..
+# deletes all snapshots in the parent directory and takes a single snapshot
+snapshot.sh -s . ..
+# you can provide any path to source and target
+snapshot.sh ~/my.big.fat.project /backups
+# do not compress (simply create a copy of the directory)
+snapshot.sh -n . ..
 ```
 
 

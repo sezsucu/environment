@@ -21,15 +21,19 @@ case $ENV_PLATFORM in
         ;;
 esac
 
+alias disableCore='ulimit -S -c 0'
+# on macs they are written to /cores
+alias enableCore='ulimit -S -c unlimited'
+
 # [Aliases]
 # to sanitize the terminal
 alias sane="stty sane"
 
 # to remove emacs files
-alias edel="\rm *~ .*~"
+alias edel="\rm *~; \rm .*~"
 
 # to reread this file from the shell
-alias resetShell=". $ENV_HOME_DIR/start.sh"
+alias reloadEnv=". $ENV_HOME_DIR/start.sh"
 
 # easier navigation
 alias cd..="cd .."

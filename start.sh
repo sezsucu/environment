@@ -69,7 +69,6 @@ shopt -s checkwinsize
 
 # [Core Files]
 disableCore
-#enableCore
 
 # [PATH]
 prependPath PATH $ENV_HOME_DIR/bin
