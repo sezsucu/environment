@@ -19,6 +19,8 @@ fi
 
 ISO_DATE_FMT='%Y-%m-%d %H:%M:%S %Z'
 
+# note that when used in if, in bash it checks if isAbsoluteDir successfully executed
+# which means it returns 0, thus this function returns 0 when the path starts with /
 function isAbsoluteDir()
 {
     if [[ "$1" =~ ^\/ ]]; then
