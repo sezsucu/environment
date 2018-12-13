@@ -56,12 +56,14 @@ if [ "$ENV_PLATFORM" = "Mac" ]; then
     MEM_FREE=`bytesToDisplay $MEM_FREE`
     LOAD=`w | grep up | awk '{print $12" "$11" "$12}'`
     LOAD15=$(echo $LOAD | cut -f 3 -d ' ');
-elif [[ "$ENV_PLATFORM" = "Linux" || "$ENV_PLATFORM" == "WSL" ]]; then
+elif [[ "$ENV_PLATFORM" = "Linux" || "$ENV_PLATFORM" == "WSL" || "$ENV_PLATFORM" = "Cygwin" ]]; then
     if [ "`command -v ip`" ]; then
         interface=`ip route get 8.8.8.8 | grep -Po '(?<=(dev )).*(?= src| proto)' | cut -f1 -d ' '`
         IP_ADDRESS=`ip addr show $interface | grep 'inet ' | cut -d t -f2 | cut -d : -f2 | cut -d ' ' -f2 | head -1 | cut -d '/' -f1`
     elif [ "`command -v /sbin/ifconfig`" ]; then
         IP_ADDRESS=`/sbin/ifconfig eth0 | grep 'inet ' | cut -d t -f2 | cut -d : -f2 | cut -d ' ' -f2 | head -1`
+    elif [[ "$ENV_PLATFORM" = "Cygwin" ]]; then
+        IP_ADDRESS=`ipconfig.exe  | grep -i "IPv4 address" | head -n 1 | cut -d ':' -f2 | cut -d ' ' -f2`
     else
         IP_ADDRESS="Couldn't detect it"
     fi
@@ -84,6 +86,9 @@ elif [[ "$ENV_PLATFORM" = "Linux" || "$ENV_PLATFORM" == "WSL" ]]; then
         . "/etc/os-release"
         DISTRO_VER=$VERSION
         DISTRO=$NAME
+    elif [[ "$ENV_PLATFORM" = "Cygwin" ]]; then
+        DISTRO="Cygwin"
+        DISTRO_VER=`uname -r`
     else
         test -r "/etc/slackware-version" && DISTRO_VER=`cat /etc/slackware-version` && DISTRO="Slackware"
         test -r "/etc/debian_version" && DISTRO_VER=`cat /etc/debian_version` && DISTRO="Debian"
@@ -92,38 +97,23 @@ elif [[ "$ENV_PLATFORM" = "Linux" || "$ENV_PLATFORM" == "WSL" ]]; then
         test -r "/etc/gentoo-release" && DISTRO_VER=`cat /etc/gentoo-release` && DISTRO="Gentoo"
         test -r "/etc/turbolinux-release" && DISTRO_VER=`cat /etc/turbolinux-release` && DISTRO="TurboLinux"
     fi
-    LOAD=`w | grep up | awk '{print $10" "$11" "$12}'`
-    LOAD15=$(echo $LOAD | cut -f 3 -d ',');
-elif [ "$ENV_PLATFORM" = "Cygwin" ]; then
-    IP_ADDRESS=`ipconfig.exe  | grep -i "IPv4 address" | head -n 1 | cut -d ':' -f2 | cut -d ' ' -f2`
-    CPU_SPEED=`grep "cpu MHz" /proc/cpuinfo | cut -d : -f2 | head -1`;
-    CPU_MODEL=`grep "model name" /proc/cpuinfo | cut -d : -f2 | head -1`;
-    CPU_COUNT=`grep "processor" /proc/cpuinfo | cut -d : -f2 | tail -1`;
-    CPU_COUNT=$(echo "$[$CPU_COUNT+1]" );
-
-    MEM_FREE=`cat /proc/meminfo | grep MemFree | cut -d: -f2 | cut -dk -f1`;
-    MEM_TOTAL=`cat /proc/meminfo | grep MemTotal | cut -d: -f2 | cut -dk -f1`;
-    MEM_TOTAL=$(echo "$[$MEM_TOTAL*1024]");
-    MEM_FREE=$(echo "$[$MEM_FREE*1024]" );
-    MEM_FREE_PCNT=$(echo "$[100*$MEM_FREE/$MEM_TOTAL]" );
-    MEM_TOTAL=`bytesToDisplay $MEM_TOTAL`
-    MEM_FREE=`bytesToDisplay $MEM_FREE`
-
-    DISTRO="Cygwin"
-    DISTRO_VER=`uname -r`
-    LOAD=`wmic cpu get loadpercentage | grep -v Load | head -1`
-    length=${#LOAD}
-    if [[ $length > 1 ]]; then
-        LOAD=${LOAD:0:2}
+    if [ "`command -v w`" ]; then
+        LOAD=`w | grep up |  sed -n -e 's/^.*load //p' | awk '{print $2" "$3" "$4}'`
+        LOAD15=$(echo $LOAD | cut -f 3 -d ',');
+    elif [[ "$ENV_PLATFORM" = "Cygwin" ]]; then
+        LOAD=`wmic cpu get loadpercentage | grep -v Load | head -1`
+        length=${#LOAD}
+        if [[ $length > 1 ]]; then
+            LOAD=${LOAD:0:2}
+        fi
+        LOAD15=$LOAD
+        if [[ $LOAD15 > 95 ]]; then
+            LOAD15=$CPU_COUNT
+        else
+            LOAD15=0
+        fi
+        LOAD="$LOAD %%"
     fi
-    LOAD15=$LOAD
-    if [[ $LOAD15 > 95 ]]; then
-        LOAD15=$CPU_COUNT
-    else
-        LOAD15=0
-    fi
-
-    LOAD="$LOAD %%"
 fi
 
 if [ `command -v curl` ]; then

@@ -9,6 +9,7 @@ A set of scripts, documentation, programs for a productive development environme
   * [Displaying system and environment information](#displaying-system-and-environment-information)
   * [Managing simple bash variables](#managing-simple-bash-variables)
   * [Time functions](#time-functions)
+  * [Snapshoting directories](#snapshoting-directories)
 * [Windows](docs/windows.md)
 * [Linux](docs/linux.md)
 * [Mac](docs/mac.md)
