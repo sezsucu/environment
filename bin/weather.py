@@ -1,6 +1,9 @@
+#!/usr/bin/env python
+
 from __future__ import print_function
 
 # https://api.darksky.net/forecast/key/lat,lgt?exclude=minutely,hourly
+# https://darksky.net/dev/docs/forecast
 
 import requests
 import datetime
