@@ -73,7 +73,6 @@ if [ `command -v curl` ]; then
     alias download='curl -L -C - -O --retry 5'
     alias responseHeaders='curl -D - -so /dev/nul'
     alias allHeaders='curl -v -so /dev/nul'
-    alias myip='curl ipinfo.io/ip'
 elif [ `command -v wget` ]; then
     alias download='wget -c'
 else
