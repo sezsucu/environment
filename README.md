@@ -47,8 +47,8 @@ If you pass it without quote, bash will expand *~ and pass the matching files to
 ### Customizations
 Consider looking at the files below for customizations.
 ```
-$ENV_HOME_DIR/bash/aliases.sh
-$ENV_HOME_DIR/bash/settings.sh
+$ENV_HOME_DIR/etc/aliases.sh
+$ENV_HOME_DIR/etc/settings.sh
 ```
 
 ### Local Time Zone

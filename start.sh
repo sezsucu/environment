@@ -15,9 +15,9 @@ if [ ! -d $ENV_DATA_DIR ]; then
 fi
 
 # custom settings
-source $ENV_HOME_DIR/settings.sh
+source $ENV_HOME_DIR/etc/settings.sh
 source $ENV_HOME_DIR/lib.sh
-source $ENV_HOME_DIR/aliases.sh
+source $ENV_HOME_DIR/etc/aliases.sh
 # variables in the form of web='web.test.com', so you can ssh $web
 if [[ -e $ENV_DATA_DIR/bash/bashVars.sh ]]; then
     source $ENV_DATA_DIR/bash/bashVars.sh;
@@ -105,7 +105,6 @@ else
             ;;
     esac
 fi
-
 case "$-" in
     *i*) # interactive
         # [Keyboard Bindings]

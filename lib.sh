@@ -342,7 +342,7 @@ function toEpoch()
     if [[ $lastArg =~ [a-zA-z]+ && $lastArg != 'UTC' && "$ENV_PLATFORM" = "Mac" ]]; then
         if [[ -z $LOCAL_TIME_ZONE ]]; then
             ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-            source "$ROOT_DIR/settings.sh"
+            source "$ROOT_DIR/etc/settings.sh"
         fi
         TZ=$LOCAL_TIME_ZONE date -j -f "$ISO_DATE_FMT" "$*" +"%s"
     else
