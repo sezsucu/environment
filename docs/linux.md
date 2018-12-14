@@ -10,6 +10,7 @@ sudo apt-get install xdg-utils
 sudo apt-get install curl
 sudo apt-get install unzip
 sudo apt-get install tmux
+sudo apt install python-pip
 ```
 
 ## Packages nice to have

@@ -10,8 +10,9 @@ export ENV_DATA_DIR=$HOME/.envData # the data directory
 if [ ! -d $ENV_DATA_DIR ]; then
     mkdir -p $ENV_DATA_DIR/bash # history file, bashVars.sh
     mkdir -p $ENV_DATA_DIR/emacs/backup # emacs backup files
+    mkdir -p $ENV_DATA_DIR/private # where we keep private data
+    chmod 700 $ENV_DATA_DIR/private
 fi
-#export envHasPython=`command -v python3`
 
 # custom settings
 source $ENV_HOME_DIR/settings.sh

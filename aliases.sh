@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# should be only sourced from start.sh
+
 case $ENV_PLATFORM in
     Mac)
         alias ls='ls -FG'
@@ -72,8 +74,9 @@ if [ `command -v curl` ]; then
     alias download='curl -L -C - -O --retry 5'
     alias responseHeaders='curl -D - -so /dev/nul'
     alias allHeaders='curl -v -so /dev/nul'
+    alias ipinfo='curl ipinfo.io/ip'
 elif [ `command -v wget` ]; then
-    alias download='wget'
+    alias download='wget -c'
 else
     alias download='echo "No wget or curl found"'
 fi
