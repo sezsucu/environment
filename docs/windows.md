@@ -25,6 +25,7 @@ choose the Ubuntu ISO and start the machine again.
 * [Ant](https://ant.apache.org/bindownload.cgi) See [Ant Installation](https://www.mkyong.com/ant/how-to-install-apache-ant-on-windows/)
 * [Maven](https://maven.apache.org/download.cgi) See [Maven Installation](https://www.mkyong.com/maven/how-to-install-maven-in-windows/)
 * [Microsoft Office](http://www.microsofthup.com/hupus/home.aspx)
+* [Node.js](https://nodejs.org/en/)
 
 ## Cygwin
 Install [Cygwin](https://cygwin.com/install.html). Make sure the following packages are
