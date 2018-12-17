@@ -55,3 +55,13 @@
 ## [file_access.sh](file_access.sh)
 * find root path of the running script
 * return a value from a function
+
+## [daemon.sh](daemon.sh)
+* trap signals
+* send signals
+* append to a file
+* while infinite loop
+* get file size
+* crude logging
+* nohup use for daemonizing
+* getting process id, pid

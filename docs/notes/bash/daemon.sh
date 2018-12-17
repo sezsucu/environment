@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
 
-source "$ENV_HOME_DIR/lib.sh"
-
-if [[ $# != 1 ]]; then
-    echo "Usage: daemon.sh [start|stop|status|restart]"
-    exit 1
-fi
+# BEGIN configurable stuff
+pidDir="." # where to store the pid file
+logDir="." # where to store the logs
+logMaxSize=1048576   # 1 MB
+runInterval=30       # number of seconds to wait after each run
 
 function doWork()
 {
@@ -19,11 +18,12 @@ function clean()
     # to be completed by you
     return 0
 }
+# END configurable stuff
 
-pidDir="."
-logDir="."
-logMaxSize=1048576  # 1 MB
-runInterval=30      # number of seconds to wait after each run
+if [[ $# != 1 ]]; then
+    echo "Usage: daemon.sh [start|stop|status|restart]"
+    exit 1
+fi
 
 daemonScript="${BASH_SOURCE[0]}"
 daemonName=$(basename "${BASH_SOURCE[0]}")
@@ -46,7 +46,7 @@ function cleanOut()
 
 function log()
 {
-    echo '*** '`date +"%Y-%m-%d"`": $*" >> $logFile
+    echo `date +"%Y-%m-%dT%H:%M:%S"`": $*" >> $logFile
 }
 
 function bigLoop()
@@ -56,17 +56,17 @@ function bigLoop()
         doWork
         local end=`date +%s`
 
-        if [[ ! $((begin-end+runInterval+1)) < $((runInterval)) ]]; then
-            log "Sleeping " $((begin-end+runInterval))
-            sleep $((begin-end+runInterval))
+        if [[ ! $((begin - end + runInterval + 1)) < $runInterval ]]; then
+            log "Sleeping " $((begin - end + runInterval))
+            sleep $((begin - end + runInterval))
 
             # check if the log file needs to be moved
             if [[ -f "$logFile" ]]; then
                 lsOutput=$(ls -ld "$logFile")
                 declare -a fileInfo
                 fileInfo=($lsOutput)
-                log "Moving log file"
-                if [[ $logMaxSize > ${fileInfo[4]} ]]; then
+                if [[ $logMaxSize < ${fileInfo[4]} ]]; then
+                    log "Moving log file"
                     \mv $logFile "$logFile.old"
                     touch $logFile
                 fi
@@ -121,7 +121,18 @@ function stop()
         break
     fi
 
-    echo "$daemonName stopping"
+    printf "$daemonName stopping..."
+    local i=0
+    while [[ -f $pidFile ]]; do
+        if (( i > runInterval )); then
+            echo "Couldn't stop $daemonName"
+            exit 1
+        fi
+        ((i+=2))
+        sleep 2
+        printf "."
+    done
+    printf "stopped"
 }
 
 function restart()
@@ -150,6 +161,10 @@ case $command in
         start
         ;;
     start)
+        if ! check ; then
+            echo "$daemonName is already running"
+            exit 1
+        fi
         nohup bash "$daemonScript" _realstart > /dev/null 2>&1 &
         ;;
     stop)
