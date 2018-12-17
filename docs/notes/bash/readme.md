@@ -65,3 +65,4 @@
 * crude logging
 * nohup use for daemonizing
 * getting process id, pid
+* -z to check if a variable is defined

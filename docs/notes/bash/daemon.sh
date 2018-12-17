@@ -78,19 +78,28 @@ function bigLoop()
 function check()
 {
     if [[ -z "$oldPid" ]]; then
-        return 0
+        return 0 # nothing is running
     elif [[ `ps aux | grep " $oldPid " | grep -v grep` ]]; then
         if [[ -f "$pidFile" ]]; then
-            if [[ `cat "$pidFile"` == $oldPid ]]; then
+            local newPid=`cat "$pidFile"`
+            if [[ $? != 0 ]]; then
+                return 0 # error in catting probably means no more file
+            elif [[ $newPid == $oldPid ]]; then
+                return 1 # daemon is running
+            elif [[ $newPid == $myPid ]]; then
+                return 0 # I am running, so what's the problem
+            elif [[ `ps aux | grep " $newPid " | grep -v grep` ]]; then
+                oldPid=$newPid # someone started a new process while we were running
                 return 1
             else
                 return 0
             fi
+        else
+            return 0 # no pid file means nothing is running
         fi
     else
         return 0
     fi
-    return 1
 }
 
 function start()
@@ -116,20 +125,25 @@ function stop()
 
     if [[ ! -z `cat $pidFile` ]]; then
         kill -TERM `cat "$pidFile"` &> /dev/null
-        sleep 1
-    else
-        break
     fi
 
     printf "$daemonName stopping..."
     local i=0
-    while [[ -f $pidFile ]]; do
+    local myOldId=$oldPid
+    while ! check; do
+        if [[ $myOldId != $oldPid ]]; then
+            printf "\nA new process is detected, trying to kill that now.."
+            i=0
+            if [[ ! -z `cat $pidFile` ]]; then
+                kill -TERM `cat "$pidFile"` &> /dev/null
+            fi
+        fi
         if (( i > runInterval )); then
             echo "Couldn't stop $daemonName"
             exit 1
         fi
-        ((i+=2))
-        sleep 2
+        ((i+=3))
+        sleep 3
         printf "."
     done
     printf "stopped"
