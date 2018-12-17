@@ -15,6 +15,7 @@
 * size of a file
 * find command
 * basename of a path
+* for loop
 
 ## [list_dirs.sh](list_dirs.sh)
 * iterating directories in a directory
@@ -24,13 +25,14 @@
 * size of a file
 * find command
 * basename of a path
+* for loop
 
 ## [line_no.sh](line_no.sh)
 * reading a file line by line
 * arrays
 * printf
-* while
-* for
+* while loop
+* for loop
 
 ## [capitalize.sh](capitalize.sh)
 * tr to capitalize
@@ -47,4 +49,9 @@
 
 ## [check_env_vars.sh](check_env_vars.sh)
 * environment variable
-* -z to check if defined or has zero length
+* -z to check if a variable is defined or has zero length
+* -n to check if a variable has non-zero length
+
+## [file_access.sh](file_access.sh)
+* find root path of the running script
+* return a value from a function

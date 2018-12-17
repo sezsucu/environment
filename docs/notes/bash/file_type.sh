@@ -11,7 +11,7 @@ function processArg()
 {
     local fileName="$1"
     case "$fileName" in
-        (*.jpg|*.jpeg)
+        *.jpg | *.jpeg)
             echo "It is a jpeg image file"
             ;;
         *.txt)
