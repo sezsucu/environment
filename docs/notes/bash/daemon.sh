@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-# nohup sh daemon.sh start > /dev/null 2>&1 &
-
 source "$ENV_HOME_DIR/lib.sh"
 
 if [[ $# != 1 ]]; then
@@ -12,8 +10,7 @@ fi
 function doWork()
 {
     # to be completed by you
-    openResource "http://www.apple.com"
-    echo "Doing Work"
+    log "Doing Work"
     return 0
 }
 
@@ -40,13 +37,12 @@ fi
 
 function cleanOut()
 {
+    log "$daemonName stopped"
     echo "Removing $pidFile"
     \rm $pidFile
     clean
     exit 1
 }
-
-trap "cleanOut" USR1
 
 function log()
 {
@@ -56,19 +52,20 @@ function log()
 function bigLoop()
 {
     while [[ 1 ]]; do
-        local now=`date +%s`
+        local begin=`date +%s`
         doWork
-        local last=`date +%s`
+        local end=`date +%s`
 
-        if [[ ! $((now-last+runInterval+1)) < $((runInterval)) ]]; then
-            log "Sleeping " $((now-last+runInterval))
-            sleep $((now-last+runInterval))
+        if [[ ! $((begin-end+runInterval+1)) < $((runInterval)) ]]; then
+            log "Sleeping " $((begin-end+runInterval))
+            sleep $((begin-end+runInterval))
 
-            # check if the log file needs to be truncated
+            # check if the log file needs to be moved
             if [[ -f "$logFile" ]]; then
                 lsOutput=$(ls -ld "$logFile")
                 declare -a fileInfo
                 fileInfo=($lsOutput)
+                log "Moving log file"
                 if [[ $logMaxSize > ${fileInfo[4]} ]]; then
                     \mv $logFile "$logFile.old"
                     touch $logFile
@@ -103,7 +100,8 @@ function start()
         exit 1
     fi
 
-    echo "Starting daemon $daemonName : $myPid"
+    trap "cleanOut" TERM
+    log "Starting daemon $daemonName : $myPid"
     echo "$myPid" > $pidFile
 
     bigLoop
@@ -117,14 +115,13 @@ function stop()
     fi
 
     if [[ ! -z `cat $pidFile` ]]; then
-        kill -USR1 `cat "$pidFile"` &> /dev/null
+        kill -TERM `cat "$pidFile"` &> /dev/null
         sleep 1
     else
         break
     fi
 
-    log "$daemonName stopped"
-    echo "$daemonName stopped"
+    echo "$daemonName stopping"
 }
 
 function restart()
