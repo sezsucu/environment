@@ -66,3 +66,10 @@
 * nohup use for daemonizing
 * getting process id, pid
 * -z to check if a variable is defined
+
+## [guess_my_number.sh](guess_my_number.sh)
+* Random number generation
+* Modulus operator
+* Regular expressions
+* Argument processing using getopts
+* Showing help
