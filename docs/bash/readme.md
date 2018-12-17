@@ -68,8 +68,12 @@
 * -z to check if a variable is defined
 
 ## [guess_my_number.sh](guess_my_number.sh)
-* Random number generation
-* Modulus operator
-* Regular expressions
-* Argument processing using getopts
-* Showing help
+* random number generation
+* modulus operator
+* regular expressions
+* argument processing using getopts
+* showing help
+
+## [dedup.sh](dedup.sh)
+* making a temporary file name or directory
+* detecting platform
