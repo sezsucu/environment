@@ -77,6 +77,9 @@
 * regular expressions
 * argument processing using getopts
 * showing help
+* read with a timeout
+* check $? for timeout of read
+* prompt with read
 
 ## [dedup.sh](dedup.sh)
 * making a temporary file name or directory

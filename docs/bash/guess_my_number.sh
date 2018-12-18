@@ -26,8 +26,12 @@ guess=$((guess % limit + 1))
 answer=""
 #echo $guess
 while [[ $answer != $guess ]]; do
-    echo "Guess my number please from 1 to $limit"
-    read -t 3 answer
+    read -t 10 -p "Guess my number please from 1 to $limit: " answer
+    if [[ $? != 0 ]]; then
+        echo ""
+        echo "Can't wait too long, bye"
+        exit 1
+    fi
     if [[ $answer =~ ^[[:digit:]]+$ ]]; then
         if [[ $answer < $guess ]]; then
             echo "Go Up"
