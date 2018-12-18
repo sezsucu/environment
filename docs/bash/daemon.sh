@@ -3,7 +3,7 @@
 # BEGIN configurable stuff
 pidDir="." # where to store the pid file
 logDir="." # where to store the logs
-logMaxSize=1048576   # 1 MB
+logMaxSize=104 #8576   # 1 MB
 runInterval=30       # number of seconds to wait after each run
 
 function doWork()
@@ -62,11 +62,12 @@ function bigLoop()
 
             # check if the log file needs to be moved
             if [[ -f "$logFile" ]]; then
-                lsOutput=$(ls -ld "$logFile")
+                local lsOutput=$(ls -ld "$logFile")
                 declare -a fileInfo
-                fileInfo=($lsOutput)
-                if [[ $logMaxSize < ${fileInfo[4]} ]]; then
-                    log "Moving log file"
+                local fileInfo=($lsOutput)
+                local fileSize=${fileInfo[4]}
+                if (( logMaxSize < fileSize )); then
+                    log "Moving log file $logMaxSize < $fileSize"
                     \mv $logFile "$logFile.old"
                     touch $logFile
                 fi
@@ -195,5 +196,3 @@ case $command in
         exit 1
         ;;
 esac
-
-

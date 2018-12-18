@@ -66,6 +66,7 @@
 * nohup use for daemonizing
 * getting process id, pid
 * -z to check if a variable is defined
+* remove any aliasing (e.g. \mv)
 
 ## [guess_my_number.sh](guess_my_number.sh)
 * random number generation
@@ -77,3 +78,11 @@
 ## [dedup.sh](dedup.sh)
 * making a temporary file name or directory
 * detecting platform
+* iterating files in a directory
+* cleaning up at the exit of the program
+
+## [random.sh](random.sh)
+* using /dev/urandom
+* fold output for a specific width
+* use of uuidgen
+

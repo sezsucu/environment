@@ -45,6 +45,7 @@ echo $tmpDir
 function finish()
 {
     \rm -rf "$tmpDir"
+    echo "Deleted the $tmpDir"
 }
 trap finish EXIT
 
