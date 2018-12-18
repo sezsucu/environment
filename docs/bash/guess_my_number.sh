@@ -27,7 +27,7 @@ answer=""
 #echo $guess
 while [[ $answer != $guess ]]; do
     echo "Guess my number please from 1 to $limit"
-    read answer
+    read -t 3 answer
     if [[ $answer =~ ^[[:digit:]]+$ ]]; then
         if [[ $answer < $guess ]]; then
             echo "Go Up"

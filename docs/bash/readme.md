@@ -26,6 +26,7 @@
 * find command
 * basename of a path
 * for loop
+* error for when no value is provided for an argument
 
 ## [line_no.sh](line_no.sh)
 * reading a file line by line
@@ -55,6 +56,7 @@
 ## [file_access.sh](file_access.sh)
 * find root path of the running script
 * return a value from a function
+* dirname of a path
 
 ## [daemon.sh](daemon.sh)
 * trap signals
@@ -67,6 +69,7 @@
 * getting process id, pid
 * -z to check if a variable is defined
 * remove any aliasing (e.g. \mv)
+* check the status of a previously run program ($?)
 
 ## [guess_my_number.sh](guess_my_number.sh)
 * random number generation
@@ -86,3 +89,20 @@
 * fold output for a specific width
 * use of uuidgen
 
+## [sort_by_size.sh](sort_by_size.sh)
+* sort numerically
+* sort in reverse order
+* arrays (adding, looping)
+* declaring arrays
+* iterating files
+
+## [quiz.sh](quiz.sh)
+* select loop
+* until loop
+
+## [string_info.sh](string_info.sh)
+* string length
+* string concatenation
+* string last char removal
+* string first char removal
+* building comma separated list

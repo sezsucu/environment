@@ -2,12 +2,7 @@
 
 # lists all direct directories in a given directory path
 
-if [[ $# != 1 ]]; then
-    echo "Provide a directory path"
-    exit 1
-fi
-
-dir=$1
+dir=${1:?"You must provide a directory path"}
 if [[ ! -d $dir ]]; then
     echo "No such directory: $dir"
     exit 1
