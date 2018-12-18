@@ -22,9 +22,13 @@ for (( i=0 ; i < ${#files[@]} ; i++ )); do
     fi
 done
 
+echo "${names[*]}"
+echo "------"
 IFS=$'\n' sorted=($(sort -rn <<<"${names[*]}"))
 for name in "${sorted[@]}"; do
     echo $name
 done
-
+echo "------"
+# due to IFS change above, the below prints with \n
+echo "${names[*]}"
 

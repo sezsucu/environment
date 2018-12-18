@@ -95,6 +95,7 @@
 * arrays (adding, looping)
 * declaring arrays
 * iterating files
+* use of IFS
 
 ## [quiz.sh](quiz.sh)
 * select loop
@@ -106,3 +107,48 @@
 * string last char removal
 * string first char removal
 * building comma separated list
+
+## [unquote.sh](string_info.sh)
+* -n to test if string is non-zero length
+* conditional last char removal
+* condition first char removal
+
+## [debug.sh](debug.sh)
+* debugging bash script
+* set -x and set +x
+
+## [analyze_data.sh](analyze_data.sh)
+* IFS to process comma separated files
+* processing a file using io redirection in a while loop
+* reading a line into an array using IFS
+* you can't do float arithmetic in bash, you can do division though
+
+
+# Notes
+
+* To avoid alias
+```bash
+\ls -l
+```
+
+* To avoid shell expansion and substitution use single quotes
+```bash
+echo 'Hello, the item is 10$!'
+```
+
+* To redirect standard error to standard output
+```bash
+program 2>&1
+```
+
+* To discard error output
+```bash
+program 2> /dev/null
+```
+
+* To direct both standard error and standard output to the same file
+```bash
+program >& everything.txt
+```
+
+
