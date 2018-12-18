@@ -69,7 +69,7 @@
 * getting process id, pid
 * -z to check if a variable is defined
 * remove any aliasing (e.g. \mv)
-* check the status of a previously run program ($?)
+* check the exit status of a previously run program ($?)
 
 ## [guess_my_number.sh](guess_my_number.sh)
 * random number generation
@@ -78,7 +78,7 @@
 * argument processing using getopts
 * showing help
 * read with a timeout
-* check $? for timeout of read
+* check exit status $? for timeout of read
 * prompt with read
 
 ## [dedup.sh](dedup.sh)
@@ -133,6 +133,9 @@
 * adding to an array
 * printing contents of an array
 
+## [difficult_to_kill.sh](difficult_to_kill.sh)
+* trapping signals with arguments
+
 # Notes
 
 * To avoid alias
@@ -165,4 +168,61 @@ program >& everything.txt
 ```bash
 ( program1; program2; program3 ) > output.txt
 ```
+
+* Run multiple programs
+```bash
+# unconditional, doesn't matter if previous command runs or not
+first ; second ; third
+# conditional, run the next one only if the previous command is successfully run
+first && second && third
+# unconditional, run in parallel
+first & second & third
+```
+
+* Conditional running of another command
+```bash
+if command1; then
+    command2
+fi
+```
+
+* Called scripts can not change the exported variables. The caller has to read
+the value back from the output of the called script and assign it to the value.
+
+* To see all set variables in the environment
+```bash
+set
+```
+
+* To see all exported variables in the environment
+```bash
+env
+```
+
+* To process all arguments
+```bash
+for argV in "$@"
+do
+    echo "Processing $argV"
+done
+```
+
+* To assign a default value, if the variable is not set before or is empty
+```bash
+cd ${TMPDIR:=/tmp}
+```
+
+* To assign a default value (including empty), if the variable is not set before
+```bash
+cd ${TMPDIR=/tmp}
+```
+In this case, empty string is valid and /tmp won't be assigned if TMPDIR is set to an empty string.
+
+* To assign a more complex value
+```bash
+cd ${TMPDIR:="$(tmpDirGetCommand)"}
+```
+You can run commands and assign their results to your variable. In general you can assign
+to other variables, tilde expansion (e.g. `~userName`), command substitution, and arithmetic expansion (e.g. `$((number+1))`)
+
 

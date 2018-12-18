@@ -55,6 +55,7 @@
 * `split`: to split a file into pieces
 * `csplit`: to split a file into pieces based on context
 * `column`: to columnate lists
+* `nohup`: to run a command immune to hangups
 
 * Continuously see the last lines of a file
 ```bash
@@ -63,12 +64,148 @@ tail -f log.file
 
 * Skip the first 5 lines of a file
 ```bash
-tail -n +5 file.txt
+tail -n +5 ../data/names.txt
 ```
 
 * To save output and see everything on screen
 ```bash
 gcc *.cc 2>&1 | tee errors.txt
 ```
+
+* To run a job even after shell exit
+```bash
+nohup command &
+```
+
+* Grep options
+```bash
+# case insensitive search
+grep -i caseinsensitive *
+# just show the number of times it was found in a file
+grep -c searchedText *
+# show lines that don't contain the given text
+grep -v unwantedText *
+# search for a regex
+grep '[0-9]\{7\}' phones.txt
+# search compressed files
+zgrep searchedText *
+```
+
+* awk options
+```bash
+# print first word
+awk '{print $1}' < input
+
+# to print first and last word in a line
+awk '{print $1, $NF}' < input
+
+# to reverse all words in a line
+awk '{for (i=NF; i>0; i--) {printf "%s ", $i;} printf "\n" }' < input
+
+# to process an awk script
+awk -f script.awk < input
+```
+
+* awk script to count occurrence of the second word
+```
+NF > 1 {
+    words[$1]++
+}
+END {
+    for (i in words) {
+        printf "%s occurs %d times\n", i, words[i]
+    }
+}
+```
+
+* Sort in reverse order
+```bash
+sort -r ../data/names.txt
+```
+
+* sort numeric data
+```bash
+sort -n ../data/numbers.txt
+```
+
+* Remove duplicate lines
+```bash
+sort -u ../data/duplicates.txt > noDuplicates.txt
+# or
+sort ../data/duplicates.txt | uniq > noDuplicates.txt
+```
+
+* Find all shells used in a system
+```bash
+cat ../data/passwd | grep -v ^# | cut -d':' -f7 | sort | uniq -c  | sort -rn
+```
+
+`grep -v` used to remove comments, lines that start with #. `cut` is used to
+select the 7th field, using ':' as a delimiter. Finally `uniq -c` is used
+to count each unique sorted value.
+
+* To sort ip addresses
+```bash
+sort -n -t . -k 1,1 -k 2,2 -k 3,3 -k 4,4 ../data/ips.txt
+```
+
+* Select a particular field from ps
+```bash
+# tr is used to collapse multiple spaces into a single space
+ps -l | tr -s ' ' | cut -f 3 -d ' '
+# or easier to do with awk
+ps -l | awk '{print $3}'
+```
+
+* Convert DOS text files to UNIX files
+```bash
+tr -d '\r' < input.dos > output.unix
+```
+
+* Counting lines, words and characters
+```bash
+# lines
+wc -l ../data/lorem.txt
+# words
+wc -w ../data/lorem.txt
+# characters
+wc -c ../data/lorem.txt
+```
+
+* Pretty format mangled text
+```bash
+fmt -w40 ../data/lorem.txt
+```
+
+* Configure less with options
+```bash
+# show line numbers -N
+# ignore case -i
+# prevent clearing the screen when exiting less -X
+# supress all noises -Q
+export LESS="-N -i -X -Q"
+```
+
+* Commands with less
+    - one window forward: `f`
+    - Type `100` followed by `z` to change the window size (applies to `f` and `b`)
+    - one window backward: `b`
+    - Type `100` followed by `w` to change the window size (applies to `f` and `b`)
+    - one line forward: `e` or `j`
+    - one line backward: `y`
+    - Type `100` followed by `d` to move forward 100 lines and 100 lines every time `d` is presed
+    - To refresh the file: `r` or `R`
+    - To go to beginning: `g`
+    - To go to end: `G`
+    - To mark a position: `m` + a lower case letter
+    - To go to a previously marked position: `'` + the lower case letter
+    - Move to a specific position by percentage: Enter a number followed by `p` or `%`
+    - Search for text: `/` + type searched text
+    - Search backwards for text: `?` + type searched text
+    - To load a new file: `:e newFile.txt`
+    - To exit: `q` or `Q`
+
+
+
 
 
