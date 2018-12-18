@@ -123,6 +123,12 @@
 * reading a line into an array using IFS
 * you can't do float arithmetic in bash, you can do division though
 
+## [builtin_data.sh](builtin_data.sh)
+* read from here documents
+* a mini ascii art
+* processing data from here documents
+* adding to an array
+* printing contents of an array
 
 # Notes
 
@@ -141,9 +147,10 @@ echo 'Hello, the item is 10$!'
 program 2>&1
 ```
 
-* To discard error output
+* To discard error output or direct it to a specific file
 ```bash
 program 2> /dev/null
+gcc *.cc 2> errors.txt
 ```
 
 * To direct both standard error and standard output to the same file
@@ -151,4 +158,8 @@ program 2> /dev/null
 program >& everything.txt
 ```
 
+* To run multiple commands and direct their output all at once
+```bash
+( program1; program2; program3 ) > output.txt
+```
 
