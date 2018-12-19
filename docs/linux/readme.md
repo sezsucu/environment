@@ -27,8 +27,17 @@ sudo apt-get install tmux
 * `watch`: to execute a program periodically and show its output fullscreen
 * `tmux`: run multiple terminals at the same time, switch between them easily
 * `pidof`: find the process id(s) of the given program
+* `paste`: merge multiple lines into a single file
 
 ## Command Examples
+* merge multiple lines into a single line
+```bash
+# 3 lines into a single line
+cat ../data/population.csv | cut -d ',' -f1,2,3 | paste - - -
+# 2 lines into a single line
+cat ../data/population.csv | cut -d ',' -f1,2,3 | paste - -
+```
+
 * watch command can be a life saver
 ```bash
 # see the top 5 processes every 4 seconds

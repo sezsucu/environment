@@ -58,8 +58,33 @@
 * `nohup`: to run a command immune to hangups
 * `pkill`: send a signal to a program based on a given name or a pattern
 * `pgrep`: list pids of a program based on a given name or a pattern
+* `ssh`: ssh client
+* `base64`: base64 encode/decode data
+* `ping`: ping an ip address or host
+* `uuidgen`: to generatae a uuid
 
 ## Command Examples
+* TO generate a uuid
+```bash
+uuidgen
+# to generate a time-based UUID
+uuidgen -t
+# uppercase letters
+uuidgen | tr [a-z] [A-Z]
+```
+
+* To sanitize file names
+```bash
+# replace any character that is not in the list with an underscore
+echo 'fileName' | sed -e 's/[^A-Za-z0-9._-]/_/g'
+```
+
+* ping until it is a success
+```bash
+while ! ping host.name &> /dev/null; do
+    echo "Pinging"
+done
+```
 
 * Send a signal based on a name
 ```bash
@@ -71,6 +96,10 @@ pkill -i emacs # case insensitive
 * Continuously see the last lines of a file
 ```bash
 tail -f log.file
+# filter out
+tail -f log.file | grep somePattern
+# follow the new file if logs are rotated regularly
+tail -F log.file | grep somePattern
 ```
 
 * Skip the first 5 lines of a file
@@ -340,6 +369,14 @@ set | grep SSH
 ssh-add
 # how to kill the ssh-agent
 # eval `ssh-agent -k`
+```
+
+* To run a script on a remote server without copying the script file there
+```bash
+# encode in base64 and decode it and run it on the other server
+# -w0 to disable line wrapping
+command=$(base64 -w0 myScript.sh)
+ssh user@remotehost "echo $command | base64 -d | bash"
 ```
 
 * Important manual sections

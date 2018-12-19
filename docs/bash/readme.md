@@ -142,6 +142,19 @@
 * getopts
 
 # Notes
+* To check if the shell is interactive
+```bash
+interactive=0
+if [[ $- == *i* ]]
+then
+    interactive=1
+fi
+```
+
+* To get the pid of the last started process
+```bash
+echo $!
+```
 
 * To avoid alias
 ```bash
