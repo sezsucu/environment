@@ -11,3 +11,11 @@
 * [Microsoft Office](http://www.microsofthup.com/hupus/home.aspx)
 
 
+## Misc Topics
+* To enable atd daemon on mac os x
+```bash
+# as root
+sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.atrun.plist
+# to disable it later
+# sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.atrun.plist
+```

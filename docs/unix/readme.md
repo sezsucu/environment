@@ -268,7 +268,281 @@ sed 's/unix/linux/g' notes.txt
 sed 's/unix/linux/g' notes.txt
 ```
 
+* To print specific fields from ../data/passwd
+```bash
+cut -d':' -f1,6,7 ../data/passwd
+# to find the most popular shell
+grep -v '^#' ../data/passwd | cut -d':' -f7 | sort | uniq -c | sort -rn
+# to rearrange fields
+grep -v '^#' ../data/passwd | awk 'BEGIN {FS=":"; OFS="\t"; } { print $1, "->",  $7,$6; }'
+```
 
+* To grep the matching parts only
+```bash
+# just grep the ip addresses (not lines)
+egrep -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' ../ips.txt
+```
+
+* To compress whitespace
+```bash
+# will compress multiple consecutive whitespaces into a single whitespace
+cat ../data/withLotsOfSpace.txt | tr -s ' ' ' '
+```
+
+* To display a file in a user specified format
+```bash
+# output the given binary file in hexadecimal shorts
+od -x < binaryFile.bin
+```
+
+* To display ASCII strings in a file
+```bash
+strings < binaryFile.bin
+```
+
+* To display a file with long lines fitted into a given width
+```bash
+fold -w80 /path/to/file
+```
+
+* To generate ssh key pairs
+```bash
+ssh-keygen -v -t rsa -b 4096 -C 'My New Key'
+```
+
+* To ssh without password
+```bash
+# create key-pair using ssh-keygen
+ssh-keygen -v -t rsa -b 4096 -C 'My New Key'
+# append ~/.ssh/id_rsa.pub into ~/.ssh/authorized_keys file
+cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+# make sure that ~/.ssh is readable by you only
+# drwx------   4 username  group 128 Aug 30 22:52 .ssh
+# make sure that ~/.ssh/id_rsa is readable by you only
+# 8 -rw-------  1 username  group   3.2K Aug 30 22:55 id_rsa
+# run ssh-agent
+eval `ssh-agent`
+# check if everything is running smoothly
+set | grep SSH
+# should see SSH_AGENT_PID and SSH_AUTH_SOCK
+# add ssh identity
+ssh-add
+# how to kill the ssh-agent
+# eval `ssh-agent -k`
+```
+
+* Important manual sections
+    - user commands: 1
+    - system calls: 2
+    - subroutines: 3
+    - devices: 4
+    - file formats: 5
+    - games: 6
+    - miscellaneous: 7
+    - system administration: 8
+    - kernel: 9
+    - new: 10
+
+```bash
+# shows passwd from section 5
+man 5 passwd
+# shows passwd from section 1
+man passwd
+```
+
+* Essential directories
+    - /bin: essential commands
+    - /dev: device files (disk drives, terminals, printers)
+    - /etc: machine-local system config files
+    - /etc/opt: add-on software config files
+    - /etc/X11: X Window System config files
+    - /home: user home directories
+    - /Users: user home directories on Mac OS X
+    - /lib: shared libraries
+    - /lib/modules: loadable kernel modules
+    - /mnt: mount point for temporary file systems
+    - /opt: add-on software packages
+    - /proc: kernel and process info
+    - /root: home directory of root
+    - /sys: device pseudofilesystem
+    - /tmp: temporary files
+    - /usr/bin: most user commands
+    - /usr/include: C header files
+    - /usr/lib: libraries
+    - /usr/local: locally important files
+    - /usr/sbin: system admin files
+    - /usr/share: architecture independent data
+    - /usr/share/doc: documentation
+    - /usr/share/info: gnu info
+    - /usr/share/man: manuals
+    - /usr/src: source code
+    - /var: variable data
+    - /var/log: log data
+    - /var/spool: spooled application data
+
+* setuid and setgid permissions: when an executable file has setuid permission set, running it
+takes the privileges of the file's owner
+
+* Hard links can only be created within the same file system, soft links can not be easily moved around
+```bash
+echo "abc" > real.txt
+ln real.txt hard.txt
+ln -s real.txt soft.txt
+more hard.txt
+> abc
+more soft.txt
+> abc
+mv soft.txt /tmp
+more /tmp/soft.txt
+> /tmp/soft.txt: No such file or directory
+mv hard.txt /tmp
+more /tmp/hard.txt
+> abc
+```
+
+* To run a command for later execution. Notice that TZ variable effects at utility too,
+so if you set TZ to UTC your time will change too.
+```bash
+at 11:53 am
+ls > ~/fileList.txt
+[CTRL-D]
+job 4 at Thu Oct  4 11:53:00 2017
+# see the queue
+atq
+4	Thu Oct  4 11:53:00 2017
+# remove the job
+atrm 4
+```
+
+* To show a calendar of a month
+```bash
+# for current month
+cal
+    October 2018
+Su Mo Tu We Th Fr Sa
+    1  2  3  4  5  6
+ 7  8  9 10 11 12 13
+14 15 16 17 18 19 20
+21 22 23 24 25 26 27
+28 29 30 31
+
+# for a specific Month
+cal November 2015
+   November 2015
+Su Mo Tu We Th Fr Sa
+ 1  2  3  4  5  6  7
+ 8  9 10 11 12 13 14
+15 16 17 18 19 20 21
+22 23 24 25 26 27 28
+29 30
+```
+
+* To number each line
+```bash
+cat -n file.txt | more
+```
+
+* To squeeze blank lines into single blank lines
+```bash
+cat -s file.txt | more
+```
+
+* To display tabs
+```bash
+cat -t file.txt
+```
+
+* To make sure xargs correctly processes its input and prompt before executing each command.
+```bash
+echo 'one two three' | xargs -p touch
+touch one two three?...
+# press y for yes
+```
+
+* To run multiple commands with xargs, use `-I` flag. So xargs executes the commands for each line in the input.
+```bash
+cat args.txt | xargs -I % sh -c 'echo %; mkdir %'
+```
+
+* To display only repeated lines in a file
+```bash
+uniq -d
+```
+
+* To display only non-repeated lines in a file
+```bash
+uniq -u
+```
+
+* To ignore case when using uniq
+```bash
+uniq -i
+```
+
+* To convert lower case letters to upper case letters
+```bash
+tr “[:lower:]” “[:upper:]” < real.txt
+```
+
+* To convert braces into parenthesis
+```bash
+tr '{}' '()' < real.txt
+```
+
+* To squueze repetition of a character or character set from a file
+```bash
+tr -s [:space:] ' ' < real.txt
+# any repetition of a, b, or c will be compressed into the character 'a'
+# e.g. cbbabbabbccc will become a
+tr -s [abc] 'a' < real.txt
+```
+
+* To delete a character or a set of characters from a file
+```bash
+tr -d [:space:] < real.txt
+```
+
+* To compare two files
+```bash
+cmp file1.txt file2.txt
+```
+
+* To compare two files but only set the process exit code
+```bash
+cmp -s file1.txt file2.txt
+```
+
+* To create a patch and apply. [A good tutorial](https://linuxacademy.com/blog/linux/introduction-using-diff-and-patch/)
+```bash
+diff -urN originalFile.txt updatedFile.txt > my.patch
+patch originalFile.txt -i my.patch -o updatedFile.txt
+# or in place patching
+patch --verbose originalFile.txt < my.patch
+```
+
+* To split a file into equal pieces
+```bash
+split file
+```
+
+* To split a file into a given number of lines each
+```bash
+split -l 5000 bigFile.txt segmentName
+```
+
+* To split a file into a given number of bytes each
+```bash
+split -b 40k bigFile.data segmentName
+```
+
+* To dump the contents of a file in character format
+```bash
+od -c input.file
+# no offset info
+od -An -c input.file
+# jump 1000 bytes and show in hexadecimal format
+od -j1000 -x input.file
+```
 
 
 
