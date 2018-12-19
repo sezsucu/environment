@@ -10,6 +10,7 @@ A set of scripts, documentation, programs for a productive development environme
   * [Managing simple bash variables](#managing-simple-bash-variables)
   * [Time functions](#time-functions)
   * [Snapshoting directories](#snapshoting-directories)
+* [Learning Bash](docs/bash/readme.md)
 * [Windows](docs/windows/readme.md)
 * [Linux](docs/linux/readme.md)
 * [Mac](docs/mac/readme.md)

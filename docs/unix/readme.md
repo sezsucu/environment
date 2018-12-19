@@ -1,4 +1,4 @@
-# Commands
+## Shell Commands
 * `type`: builtin command
 * `which`: to find which command would be executed
 * `man`: to view the manual for a command
@@ -56,6 +56,17 @@
 * `csplit`: to split a file into pieces based on context
 * `column`: to columnate lists
 * `nohup`: to run a command immune to hangups
+* `pkill`: send a signal to a program based on a given name or a pattern
+* `pgrep`: list pids of a program based on a given name or a pattern
+
+## Command Examples
+
+* Send a signal based on a name
+```bash
+pkill emacs # by default SIGTERM is sent
+pkill -9 emacs # sends a SIGKILL
+pkill -i emacs # case insensitive
+```
 
 * Continuously see the last lines of a file
 ```bash
@@ -527,12 +538,13 @@ split file
 
 * To split a file into a given number of lines each
 ```bash
-split -l 5000 bigFile.txt segmentName
+split -l 50 ../data/population.csv segment_
+# segment_aa segment_ab ...
 ```
 
 * To split a file into a given number of bytes each
 ```bash
-split -b 40k bigFile.data segmentName
+split -b 32768 ../data/population.csv segment_
 ```
 
 * To dump the contents of a file in character format
@@ -544,6 +556,10 @@ od -An -c input.file
 od -j1000 -x input.file
 ```
 
+* To get the first, second and third fields from population.csv file
+```bash
+cat ../data/population.csv | cut -d ',' -f1,2,3
+```
 
 
 
