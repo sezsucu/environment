@@ -19,3 +19,6 @@ sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.atrun.plist
 # to disable it later
 # sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.atrun.plist
 ```
+
+## Mac Settings
+* Turn off Handoff on Mac **System Preferences > General > Allow Handoff between this Mac ...**

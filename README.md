@@ -10,9 +10,9 @@ A set of scripts, documentation, programs for a productive development environme
   * [Managing simple bash variables](#managing-simple-bash-variables)
   * [Time functions](#time-functions)
   * [Snapshoting directories](#snapshoting-directories)
-* [Windows](docs/windows.md)
-* [Linux](docs/linux.md)
-* [Mac](docs/mac.md)
+* [Windows](docs/windows/readme.md)
+* [Linux](docs/linux/readme.md)
+* [Mac](docs/mac/readme.md)
 * [Misc](docs/misc.md)
 
 ## How to install

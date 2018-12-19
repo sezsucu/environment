@@ -23,8 +23,19 @@ sudo apt-get install g++
 * [Chrome](https://askubuntu.com/questions/510056/how-to-install-google-chrome)
 * [Intellij IDEA](https://www.jetbrains.com/idea/download/#section=linux)
 
-## Mac Settings
-* Turn off Handoff on Mac **System Preferences > General > Allow Handoff between this Mac ...**
+## Misc Topics
 
+* To see version info
+```bash
+cat /etc/*-release
+more /proc/version
+uname -a
+```
+
+* watch command can be a life saver
+```bash
+# see the top 5 processes every 4 seconds
+watch -n 4 "ps aux | sort -nrk 3,3 | head -n 5"
+```
 
 
