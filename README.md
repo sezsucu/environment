@@ -13,6 +13,7 @@ A set of scripts, documentation, programs for a productive development environme
 * [Windows](docs/windows/readme.md)
 * [Linux](docs/linux/readme.md)
 * [Mac](docs/mac/readme.md)
+* [Unix](docs/unix/readme.md)
 * [Misc](docs/misc.md)
 
 ## How to install
