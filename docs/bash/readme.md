@@ -66,7 +66,7 @@
 * get file size
 * crude logging
 * nohup use for daemonizing
-* getting process id, pid
+* getting process id, pid ($$)
 * -z to check if a variable is defined
 * remove any aliasing (e.g. \mv)
 * check the exit status of a previously run program ($?)
@@ -135,6 +135,11 @@
 
 ## [difficult_to_kill.sh](difficult_to_kill.sh)
 * trapping signals with arguments
+
+## [send_email.sh](send_email.sh)
+* customized error messages for missing arguments for options
+* reading from standard input to an array
+* getopts
 
 # Notes
 

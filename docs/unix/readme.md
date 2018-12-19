@@ -205,6 +205,71 @@ export LESS="-N -i -X -Q"
     - To load a new file: `:e newFile.txt`
     - To exit: `q` or `Q`
 
+* To view all jobs started from the current shell
+```bash
+jobs
+# to see pids too
+jobs -l
+```
+
+* To measure the time it takes to run a command
+```bash
+time command
+```
+
+* To format dates
+```bash
+ISO_8601='%Y-%m-%dT%H:%M:%S%z'
+ISO_8601_ALT='%Y-%m-%d %H:%M:%S %Z'
+FILENAME_DATE='%Y%m%d%H%M%S'
+
+date "+$ISO_8601"
+mv log.file.log "log.file.$(date +$FILENAME_DATE).log"
+```
+
+* Get the epoch seconds of now
+```bash
+date '+%s'
+# Epoch seconds are the number of seconds since midnight on January 1, 1970
+```
+
+* To create a symbolic link
+```bash
+ln -s source.file new.symbolick.link
+```
+
+* To pipe output of find to ls
+
+But this won't work really well with file names that include whitespace.
+In order to solve that you need to change the delimiter used by xargs, but
+that won't work on Mac Os X, where the only alternative is to set the delimiter
+to '\0' character using `-0` option, and consequently you need to modify the find command to print '\0'
+using `-print0`. In Linux, it is much easier using `-d '\n'` command option.
+```bash
+# on mac os x and linux
+find . -name *\.sh* -print0 | xargs -0 ls -lh
+
+# on linux (it is easier)
+find . -name *\.sh* | xargs -d '\n' ls -lh
+```
+
+* To find and replace the first occurrence of a word in all lines of a file
+```bash
+sed 's/unix/linux' notes.txt
+```
+
+* To find and replace the second occurrence of a word in all lines of a file
+```bash
+sed 's/unix/linux/g' notes.txt
+```
+
+* To find and replace all occurrences of a word in a file
+```bash
+sed 's/unix/linux/g' notes.txt
+```
+
+
+
 
 
 
