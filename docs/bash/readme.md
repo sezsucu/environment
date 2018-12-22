@@ -161,6 +161,10 @@
 * you need ncurses and tput to make this example work
 * press q to exit, reading a single key without pressing enter key
 
+## [colors.sh](colors.sh)
+* displays various colors in a formatted manner
+* terminal color codes for foreground and background
+
 # Notes
 * To see all defined shell variables and values
 ```bash

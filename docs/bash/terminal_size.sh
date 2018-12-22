@@ -17,7 +17,7 @@ function redraw()
 
 function cleanUp()
 {
-    stty echo
+    stty echo # echo back the keyboard entries
     tput rmcup # restore the screen
 }
 
@@ -27,10 +27,10 @@ trap cleanUp TERM
 
 tput smcup # save the screen
 clear
-stty -echo
+stty -echo # do not echo back the keyboard entries
 redraw
 while [[ 1 ]]; do
-    tput civis
+    tput civis # make cursor invisible
     read -rsn1 input
     if [ "$input" = "q" ]; then
         exit 1
