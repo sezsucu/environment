@@ -30,6 +30,14 @@ sudo apt-get install tmux
 * `paste`: merge multiple lines into a single file
 
 ## Command Examples
+* to list all available services
+```bash
+service --status-all
+systemctl -l --type service --all
+systemctl -r --type service --all
+/etc/init.d
+```
+
 * merge multiple lines into a single line
 ```bash
 # 3 lines into a single line

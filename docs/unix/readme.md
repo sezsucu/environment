@@ -47,6 +47,7 @@
 * `passwd`: to change password
 * `tty`: to display user's terminal name
 * `jobs`: to list active jobs
+* `fg`: brings the most recent job to the foreground
 * `at`: to run a job for later execution
 * `atq`: to list the jobs to be executed later
 * `atrm`: to remove a job from the at queue
@@ -59,11 +60,23 @@
 * `pkill`: send a signal to a program based on a given name or a pattern
 * `pgrep`: list pids of a program based on a given name or a pattern
 * `ssh`: ssh client
+* `scp`: transfer files between a local host and a remote host
 * `base64`: base64 encode/decode data
 * `ping`: ping an ip address or host
 * `uuidgen`: to generatae a uuid
+* `bc`: calculator
 
 ## Command Examples
+* To calculate something quick
+```bash
+bc <<< '2 + 3'
+```
+
+* To redirect stderr to a specific file
+```bash
+cmd 2>stderr.txt 1>stdout.txt
+```
+
 * TO generate a uuid
 ```bash
 uuidgen
@@ -460,6 +473,12 @@ atq
 4	Thu Oct  4 11:53:00 2017
 # remove the job
 atrm 4
+# to start service if not running
+sudo service atd start
+sudo service atd stop
+# on mac os x
+sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.atrun.plist
+sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.atrun.plist
 ```
 
 * To show a calendar of a month

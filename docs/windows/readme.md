@@ -40,6 +40,7 @@ installed:
 * procps-ng (top, uptime, w etc...)
 * tmux
 * python-pip (pip2.7 install --upgrade pip)
+* bc (calculator)
 
 ## Java
 * [Set the JAVA_HOME](https://docs.oracle.com/cd/E19182-01/820-7851/inst_cli_jdk_javahome_t/)

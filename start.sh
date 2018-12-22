@@ -32,6 +32,17 @@ export PAGER=less
 export LESSCHARSET='utf-8'
 export TMOUT=0 # never logout due to inactivity
 
+# bc
+if [[ `command -v bc` ]]; then
+    export BC_ENV_ARGS="$ENV_HOME_DIR/etc/bc_init.txt"
+    alias c='set -f; c'
+    function c()
+    {
+        bc <<< "$@"
+        set +f
+    }
+fi
+
 # [History]
 export HISTFILE=$ENV_DATA_DIR/bash/history
 export HISTSIZE=10000

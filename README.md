@@ -61,7 +61,7 @@ This value is being used in various locations for display purposes. **By default
 such as the bash prompt. `LOCAL_TIME_ZONE` is also used in certain functions due to limitations
 of platforms.
 
-## Aliases
+## Aliases and Functions
 
 * `lsl`: detailed list of files
 * `lsa`: non-detailed list of files
@@ -84,6 +84,7 @@ of platforms.
 * `download`: download a url to a local file (if curl or wget is available)
 * `responseHeaders`: shows reponse headers of a given url (only if curl is available)
 * `allHeaders`: shows all HTTP headers of a given url (only if curl is available)
+* `c`: calculate a mathematical expression
 
 ## Files and directories
 

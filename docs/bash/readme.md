@@ -141,7 +141,22 @@
 * reading from standard input to an array
 * getopts
 
+## [ascii_art.sh](ascii_art.sh)
+* use of here documents
+* pipes
+
+## [sort_arrays.sh](sort_arrays.sh)
+* assigning to arrays
+* sorting arrays
+* numerical sorting
+* iterating sorted arrays
+
 # Notes
+* To see all defined shell variables and values
+```bash
+set | less
+```
+
 * To check if the shell is interactive
 ```bash
 interactive=0
