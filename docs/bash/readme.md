@@ -151,6 +151,16 @@
 * numerical sorting
 * iterating sorted arrays
 
+## [terminal_size.sh](terminal_size.sh)
+* tput
+* hide cursor/show cursor
+* trap window change signal
+* cleaup at exit
+* clear the entire screen
+* changing background color
+* you need ncurses and tput to make this example work
+* press q to exit, reading a single key without pressing enter key
+
 # Notes
 * To see all defined shell variables and values
 ```bash
