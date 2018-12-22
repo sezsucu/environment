@@ -4,7 +4,7 @@
 pidDir="." # where to store the pid file
 logDir="." # where to store the logs
 logMaxSize=104 #8576   # 1 MB
-runInterval=30       # number of seconds to wait after each run
+runInterval=30         # number of seconds to wait after each run
 
 function doWork()
 {
@@ -52,6 +52,7 @@ function log()
 function bigLoop()
 {
     while [[ 1 ]]; do
+        # measure the time it takes to do the work
         local begin=`date +%s`
         doWork
         local end=`date +%s`

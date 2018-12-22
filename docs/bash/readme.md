@@ -66,6 +66,7 @@
 * get file size
 * crude logging
 * nohup use for daemonizing
+* measure time of a function using date
 * getting process id, pid ($$)
 * -z to check if a variable is defined
 * remove any aliasing (e.g. \mv)
@@ -305,5 +306,11 @@ check='test -d $DIR_NAME -a -r $DIR_NAME -a -w $DIR_NAME -a -x $DIR_NAME'
 if ! eval $check; then
     echo "Not directory or readable or writable or searchable"
 fi
+```
+
+* Functions can be exported using `export` command, to make them available
+to subprocesses
+```bash
+export -f funcName
 ```
 
