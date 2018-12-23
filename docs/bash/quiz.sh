@@ -11,7 +11,10 @@ until [[ "$selected" == "exit" ]]; do
             break
         elif [[ -n "$selected" ]]; then
             echo "Questions for $selected topic"
-            for n in 1 2 3 4 5; do
+            for n in 1 2; do
+                echo "Question $n ) ...."
+            done
+            for n in `seq 3 5`; do
                 echo "Question $n ) ...."
             done
             break

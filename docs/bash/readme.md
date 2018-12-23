@@ -314,3 +314,8 @@ to subprocesses
 export -f funcName
 ```
 
+* To clear a file, to set its size to 0
+```bash
+# when noclobber is in effect (always set noclobber)
+: >| file.name
+```
