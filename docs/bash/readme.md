@@ -104,6 +104,7 @@
 ## [quiz.sh](quiz.sh)
 * select loop
 * until loop
+* use of seq in for loop
 
 ## [string_info.sh](string_info.sh)
 * string length
