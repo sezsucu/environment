@@ -13,3 +13,8 @@ for FG in 'm' '1m' '30m' '1;30m' '31m' '1;31m' '32m' '1;32m' '33m' \
   printf "\n"
 done
 echo
+
+for a in {a..z}; do
+    printf $a
+done
+echo

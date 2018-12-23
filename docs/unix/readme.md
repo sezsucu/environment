@@ -65,6 +65,8 @@
 * `ping`: ping an ip address or host
 * `uuidgen`: to generatae a uuid
 * `bc`: calculator
+* `script`: to record terminal session
+* `scriptreplay`: to replay a recoded terminal session
 
 ## Command Examples
 * To calculate something quick
@@ -210,9 +212,42 @@ ps -l | tr -s ' ' | cut -f 3 -d ' '
 ps -l | awk '{print $3}'
 ```
 
-* Convert DOS text files to UNIX files
+* Convert DOS text files to UNIX files by deleting \r character
 ```bash
 tr -d '\r' < input.dos > output.unix
+```
+
+* To squeeze multiple consecutive occurrences of a character into a single one
+```bash
+# replaces runnings of a space with a single space
+tr -s ' ' < input
+# remove extra empty lines
+tr -s '\n' < input
+```
+
+* Character classes
+  * `alnum`
+  * `alpha`
+  * `cntrl`
+  * `digit`
+  * `graph`
+  * `lower`
+  * `print`
+  * `punct`
+  * `space`
+  * `upper`
+  * `xdigit`
+
+
+* Convert a tab character to a single space
+```bash
+tr '\t' ' ' < input
+```
+
+* Delete all chars not in set1
+```bash
+echo "|hello 1234 |"| tr -c 'a-z|' ' '
+|hello      |
 ```
 
 * Counting lines, words and characters
@@ -617,6 +652,113 @@ od -j1000 -x input.file
 cat ../data/population.csv | cut -d ',' -f1,2,3
 ```
 
+* Merge multiple files into one file
+```bash
+cat file1 file2 file3 > merged.file
+```
 
+* To squeeze multiple adjancent blank lines into a single blank line
+```bash
+cat -s input.file
+```
 
+* To display tab characters as ^I
+```bash
+cat -T input.file
+```
+
+* To display line numbers
+```bash
+cat -n input.file
+```
+
+* To record and replay screen commands
+```bash
+script -t 2> timing.log -a output.session
+# then do whatever you want and finally type exit
+exit
+# to replay it
+scriptreplay timing.log output.session
+# it will play everything and then exit by itself
+```
+
+* Finding files
+```bash
+# find all files and directories under current directory
+find . -print
+# find all files and directories under current directory, follow symbolic links
+find -L . -print
+# find all files and do an ls using xargs
+find . -type f -print0 | xargs -0 ls -l
+# using regular expressions
+find . -regex '.*\(\.java\|\.sh\)$'
+# using regular expressions, ignore the case
+find . -iregex '.*\(\.java\|\.sh\)$'
+# find based on file's name
+find . \( -name '*.txt' -o -name '*.md' \) -print
+# find based on file's name ignoring the case
+find . \( -iname '*.txt' -o -iname '*.md' \) -print
+# find based on a file's path's name
+find . \( -path '*/text/*' -o -name '*.md' \) -print
+# find all files that are NOT named *.txt
+find . ! -name "*.txt" -print
+# just direct children of the current directory
+find . -maxdepth 1 -print
+# minimum 2 directory deep
+find . -mindepth 2 -print
+# based on access time within the last 7 days
+find . -atime -7 -print
+# based on modification time exactly 7 days old
+find . -mtime 7 -print
+# based on modification time within the last 7 minutes
+find . -mmin -7 -print
+# based on creation time that is more than 7 minutes old
+find . -cmin +7 -print
+# find all files that were modified more recently than input.file
+find . -type f -newer input.file -print
+# find all files greater than 2 Megabytes
+find . -type f -size +2M
+# find all files less than 2 kilobytes
+find . -type f -size -2M
+# find all files that is exactly 2 bytes
+find . -type f -size 2b
+# find all files that have the exact permission
+find . -type f -perm 644 -print
+# find all files owned by a specific user
+find . -type f -user root -print
+# delete all found files
+find . -type f -name "*.mwd" -delete
+# executing a command on each found file
+find . -type f -user root -exec chown user1 {} \;
+# if the command accepts multiple arguments use + to speed up
+find . -type f -user root -exec chown user1 {} +
+# to concatenate all files into a single file
+find . -name "*.txt" -exec cat {} > everything.txt \;
+# copy files older than 10 days to a backup directory
+find . -type f -mtime +10 -exec cp {} /backup \;
+# to use multiple commands for each file, store multiple commands in a script file
+find . -type f -mtime +10 -exec multi_command.sh \;
+# to .git directory
+find . -name ".git" -prune -o -type f -print
+```
+
+* Use xargs to split input into items and run a command for each one of them
+```bash
+# by default xargs will echo the input
+cat ../data/names.txt | xargs
+# change the delimiter
+cat ../data/names.txt | xargs -d ' '
+cat ../data/names.txt | xargs -d 'i'
+# change the number of items to process per command invocation
+cat ../data/names.txt | xargs -n 5
+# if there are white spaces in the input, use -print0 in the find and -0
+find . -name "*.txt" -print0 | xargs -0 grep Joe
+# to make xargs call the command with a formatted argument
+# below xargs will call myCommand.sh for each item in the input
+# with "-p item -l" arguments
+find . -name "*.txt" -print0 | xargs -0 -I {} myCommand.sh -p {} -l
+find . -name "*.txt" -print0 | xargs -0 -I ^ myCommand.sh -p ^ -l
+# count the number of shell script lines
+find . -name "*.sh" -print0 | xargs -0 wc -l
+```
 

@@ -166,6 +166,12 @@
 ## [colors.sh](colors.sh)
 * displays various colors in a formatted manner
 * terminal color codes for foreground and background
+* for loop with {..}
+
+## [passwords.sh](passwords.sh)
+* read password
+* IFS to process a line with a specific delimiter
+* Iterating through a file line by line
 
 # Notes
 * To see all defined shell variables and values
