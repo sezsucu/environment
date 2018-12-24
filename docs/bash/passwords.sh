@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# gets the user name and processes ../data/passwd to find the line
+# which belongs to that user name
+
 echo -n "Enter your user name: "
 stty -echo
 read userName

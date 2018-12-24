@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# a cool demo of tputs
+
 BG_BLUE="$(tput setab 4)"
 FG_WHITE="$(tput setaf 7)"
 

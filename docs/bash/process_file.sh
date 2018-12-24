@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# it will print the file on screen with a line number
+
 file=${1:?"You must provide a file path"}
 
 if [[ ! -f $file ]]; then

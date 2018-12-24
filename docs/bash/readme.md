@@ -177,6 +177,14 @@
 * Use of the %, %%, #, ## operator
 * Getting file name and extension
 
+## [is_common.sh](is_common.sh)
+* use of grep with regular expressions
+
+## [parallel_md5.sh](parallel_md5.sh)
+* parallel (background) vs serial execution speed
+* waiting on bacgkround processes
+* getting the previous command $!
+
 # Notes
 * To see all defined shell variables and values
 ```bash

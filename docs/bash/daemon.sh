@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# a template for writing a daemon
+# the stop doesn't instantly stop it, it needs to wake up from sleep
+
 # BEGIN configurable stuff
 pidDir="." # where to store the pid file
 logDir="." # where to store the logs

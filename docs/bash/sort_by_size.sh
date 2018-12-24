@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# sorts files in a given directory by size
+
 if [[ $# != 1 ]]; then
     echo "Usage: sort_by_size.sh /path/to/dir"
     exit 1

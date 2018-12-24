@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# a simple color table using the brk text
+
 testString='brk'
 
 echo -e "\n             40m     41m     42m     43m     44m     45m     46m     47m";

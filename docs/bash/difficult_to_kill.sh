@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# this is a process which is difficult to kill because of the trap
+
 echo "Do Ctrl-Z and then jobs and then kill -USR2 pid"
 function trapSignal()
 {

@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# analyzes and manipulates string
+
 str=${1:?"You must provide a string value"}
 
 printf "%20s: %d\n" "Length" ${#str}

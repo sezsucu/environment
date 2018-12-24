@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# a dummy quiz program
+
 options="Science Math Movies exit"
 selected=""
 until [[ "$selected" == "exit" ]]; do

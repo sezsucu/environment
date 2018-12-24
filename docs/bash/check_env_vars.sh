@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# checks if an environment variable is defined or not
+
 if [[ -z "$ENV_NOT_DEFINED_AT_ALL" ]]; then
     echo "ENV_NOT_DEFINED_AT_ALL is not defined"
 fi
