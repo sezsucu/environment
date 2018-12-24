@@ -32,6 +32,7 @@ function showDir()
     local level=$2
     local k=0
     local filesStr=$(find "$path" -maxdepth 1 -type d)
+    local fileCount=`find $path -maxdepth 1 -type f | wc -l`
     local files
     local file
     local i
@@ -49,9 +50,9 @@ function showDir()
             else
                 showLevel $level
                 if (( k > 0 )); then
-                    echo '|' $(basename "$file")
+                    echo '|' $(basename "$file") "($fileCount files)"
                 else
-                    echo '\' $(basename "$file")
+                    echo '\' $(basename "$file") "($fileCount files)"
                 fi
                 showDir "$file" $((level+1))
             fi

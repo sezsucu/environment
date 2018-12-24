@@ -72,8 +72,34 @@
 * `sha1sum`: sha1 on linux
 * `gpg`: openPGP encryption and signing tool
 * `mktemp`: to create or generate temp files or file names
+* `dd`: convert and copy a file
+* `comm`: compare two sorted files line by line
 
 ## Command Examples
+* To find the intersection of two files
+```bash
+comm first.file second.file -1 -2
+```
+
+* To find the difference of the first file from the second file
+```bash
+comm first.file second.file -2 -3
+```
+
+* To find the difference of the second file from the first file
+```bash
+comm first.file second.file -1 -3
+```
+
+* To create a big file
+```bash
+dd if=/dev/zero of=output.data bs=1M count=1
+# if input file
+# of output file
+# bs is size of the block
+# count is number of blocks to copy
+```
+
 * To generate salted passwords
 ```bash
 openssl passwd -1 -salt 78891234 mySecretPassword

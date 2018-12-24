@@ -80,7 +80,7 @@ shopt -s no_empty_cmd_completion
 shopt -s checkwinsize
 
 # [Core Files]
-disableCore
+ulimit -S -c 0
 
 # [PATH]
 prependPath PATH $ENV_HOME_DIR/bin
