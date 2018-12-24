@@ -30,6 +30,11 @@ sudo apt-get install tmux
 * `paste`: merge multiple lines into a single file
 
 ## Command Examples
+* to make a file immutable
+```bash
+chattr +i file.path
+```
+
 * to list all available services
 ```bash
 service --status-all
@@ -108,5 +113,11 @@ uname -a
     * `resize-pane -L 2` to move the separator left 2 lines
     * `resize-pane -R 2` to move the separator right 2 lines
 
+## Important Files
+* `/etc/resolv.conf`
+Where DNS servers are listed
+
+* `/etc/mtab`
+Where mounted file systems are listed
 
 

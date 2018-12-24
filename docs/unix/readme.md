@@ -74,6 +74,7 @@
 * `mktemp`: to create or generate temp files or file names
 * `dd`: convert and copy a file
 * `comm`: compare two sorted files line by line
+* `touch`: change file timestamps or create a new file if no file exists
 
 ## Command Examples
 * To find the intersection of two files
@@ -394,7 +395,9 @@ date '+%s'
 
 * To create a symbolic link
 ```bash
-ln -s source.file new.symbolick.link
+ln -s source.file new.symbolic.link
+# to read the symbolic link itself
+readlink new.symbolic.link
 ```
 
 * To pipe output of find to ls
@@ -844,4 +847,14 @@ fileName=$(mktemp -u /tmp/testing.XXXXXX)
 * To create a temporary directory, rather than a file
 ```bash
 dirPath=$(mktemp -d /tmp/testDir.XXXXXXX)
+```
+
+* To change access time of a file
+```bash
+touch -a file.path
+```
+
+* To change modification time of a file
+```bash
+touch -m file.path
 ```
