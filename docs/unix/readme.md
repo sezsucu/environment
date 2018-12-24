@@ -67,8 +67,39 @@
 * `bc`: calculator
 * `script`: to record terminal session
 * `scriptreplay`: to replay a recoded terminal session
+* `md5`: md5 on mac os x
+* `md5sum`: md5 on linux
+* `sha1sum`: sha1 on linux
+* `gpg`: openPGP encryption and signing tool
+* `mktemp`: to create or generate temp files or file names
 
 ## Command Examples
+* To generate salted passwords
+```bash
+openssl passwd -1 -salt 78891234 mySecretPassword
+$1$78891234$.caUJ9QS3PL8.xulIOLok1
+```
+
+* To verify a md5 checksum of a file
+```bash
+md5sum * > all_files_md5.txt
+# this will verify each file and output OK or FAILED for each one
+md5sum -c all_files_md5.txt
+# find all md5s under the current directory
+find /path/to/dir -name ".git" -prune -o -type f -print0 | xargs -0 md5sum >> dir.md5
+md5sum -c dir.md5
+```
+
+* To verify a sha1 checksum of a file
+```bash
+sha1sum * > all_files_sha1.txt
+# this will verify each file and output OK or FAILED for each one
+sha1sum -c all_files_sha1.txt
+# find all sha1s under the current directory
+find /path/to/dir -name ".git" -prune -o -type f -print0 | xargs -0 sha1sum >> dir.sha1
+sha1sum -c dir.sha1
+```
+
 * To calculate something quick
 ```bash
 bc <<< '2 + 3'
@@ -176,6 +207,20 @@ END {
 * Sort in reverse order
 ```bash
 sort -r ../data/names.txt
+```
+
+* Check if a file is sorted
+```bash
+sort ../data/names.txt | sort -C
+echo $? # 0 means it is sorted, otherwise not sorted
+```
+
+* Sort population data for a specific year
+```bash
+# sort by 2017
+sort -t ',' -nrk 58 population.csv  | awk -F',' '{print $1, $58}'
+# sort by 1960
+sort -t ',' -nrk 2 population.csv  | awk -F',' '{print $1, $2}'
 ```
 
 * sort numeric data
@@ -635,7 +680,8 @@ split -l 50 ../data/population.csv segment_
 
 * To split a file into a given number of bytes each
 ```bash
-split -b 32768 ../data/population.csv segment_
+# use numeric suffixes, use 4 suffix length e.g. 0000
+split -b 32768 ../data/population.csv -d -a 4 segment_
 ```
 
 * To dump the contents of a file in character format
@@ -740,6 +786,8 @@ find . -type f -mtime +10 -exec cp {} /backup \;
 find . -type f -mtime +10 -exec multi_command.sh \;
 # to .git directory
 find . -name ".git" -prune -o -type f -print
+# move all movies to a single directory
+find . -name "*.mov" -exec mv {} /path/to/targetDir \;
 ```
 
 * Use xargs to split input into items and run a command for each one of them
@@ -762,3 +810,12 @@ find . -name "*.txt" -print0 | xargs -0 -I ^ myCommand.sh -p ^ -l
 find . -name "*.sh" -print0 | xargs -0 wc -l
 ```
 
+* To generate a temporary file name without creating one
+```bash
+fileName=$(mktemp -u /tmp/testing.XXXXXX)
+```
+
+* To create a temporary directory, rather than a file
+```bash
+dirPath=$(mktemp -d /tmp/testDir.XXXXXXX)
+```

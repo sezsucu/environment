@@ -173,6 +173,10 @@
 * IFS to process a line with a specific delimiter
 * Iterating through a file line by line
 
+## [analyze_filename.sh](analyze_filename.sh)
+* Use of the %, %%, #, ## operator
+* Getting file name and extension
+
 # Notes
 * To see all defined shell variables and values
 ```bash
