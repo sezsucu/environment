@@ -30,10 +30,30 @@ sudo apt-get install tmux
 * `paste`: merge multiple lines into a single file
 
 ## Command Examples
-* to make a file immutable
+* To make a file immutable
 ```bash
 chattr +i file.path
 ```
+
+* To create and mount a loopback file system
+```bash
+dd if=/dev/zero of=loopback.img bs=1G count=1
+mkfs.ext4 loopback.img
+sudo mkdir /mnt/loopback
+sudo mount -o loop loopback.img /mnt/loopback
+# when done
+sudo umount /mnt/loopback
+```
+
+* To create an iso image from a directory
+```bash
+mkisofs -V "Label" -o image.iso source_dir/
+sudo mkdir /mnt/image
+sudo mount -o loop image.so /mnt/image
+# when done
+sudo umount /mnt/image
+```
+
 
 * to list all available services
 ```bash
@@ -62,6 +82,12 @@ watch -n 4 "ps aux | sort -nrk 3,3 | head -n 5"
 pidof commandName
 # to display just one pid
 pidof -s commandName
+```
+
+* Tell tail to die when a process dies
+```bash
+PID=$(pidof httpd)
+tail -f log.file --pid $PID
 ```
 
 * To see version info

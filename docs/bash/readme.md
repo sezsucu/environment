@@ -185,6 +185,10 @@
 * waiting on bacgkround processes
 * getting the previous command $!
 
+## [file_types.h](file_types.h)
+* finding out the type of a file
+* associative arrays
+
 # Notes
 * To see all defined shell variables and values
 ```bash

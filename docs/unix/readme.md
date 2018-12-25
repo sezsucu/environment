@@ -14,7 +14,7 @@
 * `tr`: translate characters
 * `wc`: word, line, character count
 * `grep`: to find text in files
-* `egrep`: like grep but can handle extended regular expressions
+* `egrep`: like grep but can handle extended regular expressions, same as `grep -E`
 * `zgrep`: to find text in compressed files
 * `zcat`: like cat, but for compressed files
 * `head`: to display the beginning of a file
@@ -75,8 +75,45 @@
 * `dd`: convert and copy a file
 * `comm`: compare two sorted files line by line
 * `touch`: change file timestamps or create a new file if no file exists
+* `file`: to learn the file type
+* `seq`: to print a sequence of numbers
+* `pushd`: add directories to the directory stack
+* `dirs`: display directories in the directory stack
+* `popd`: pops the current directory and changes to the new top directory
 
 ## Command Examples
+* To manipulate multiple directories
+```bash
+cd /tmp
+pushd ~/env
+pushd ~/.envData
+pushd /etc
+dirs
+# /etc ~/.envData ~/env /tmp
+pushd +3
+# now we are at /tmp
+dirs
+/tmp /etc ~/.envData ~/env
+pushd +2
+# now we are at ~/.envData
+dirs
+# ~/.envData ~/env /tmp /etc
+popd
+# we are at ~/env with ~/env /tmp /etc stack
+popd
+# we are at /tmp with /tmp /etc stack
+popd
+# we are at /etc with /etc stack
+```
+
+* To generate a sequence of numbers
+```bash
+# generate from 1 to 100
+seq 100
+# generate from 5 to 10
+seq 5 10
+```
+
 * To find the intersection of two files
 ```bash
 comm first.file second.file -1 -2
@@ -150,6 +187,26 @@ uuidgen | tr [a-z] [A-Z]
 ```bash
 # replace any character that is not in the list with an underscore
 echo 'fileName' | sed -e 's/[^A-Za-z0-9._-]/_/g'
+```
+
+* To replace a pattern
+```bash
+sed 's/root/clown/' passwd
+# you can make the changes permament in the original file itself
+sed -i 's/root/clown/' passwd.cp
+# to replace all occurrences of a word in a line
+sed -i 's/root/clown/g' passwd.cp
+# replace all occurences from the 3rd occurrence onward
+sed -i 's/root/clown/3g' passwd.cp
+# do in-place replacement, but also create a backup file for the original contents
+sed -i .bak 's/root/clown/3g' passwd.cp
+# you can use regular expressions \1 refers to the matched part in parentheses
+sed 's/digit \([0-9]\)/\1/'
+```
+
+* To remove blank lines
+```bash
+sed '/^$/d' input.file
 ```
 
 * ping until it is a success
@@ -442,7 +499,49 @@ grep -v '^#' ../data/passwd | awk 'BEGIN {FS=":"; OFS="\t"; } { print $1, "->", 
 * To grep the matching parts only
 ```bash
 # just grep the ip addresses (not lines)
-egrep -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' ../ips.txt
+egrep -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' ../data/ips.txt
+# find the number of lines that matched
+egrep -c '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' ../data/ips.txt
+```
+
+* To display the files that match
+```bash
+grep -l word ../data/ips.txt ../data/1000.txt ../data/duplicates.txt ../data/lorem.txt
+# to display non-matching files
+grep -L word ../data/ips.txt ../data/1000.txt ../data/duplicates.txt ../data/lorem.txt
+```
+
+* To recursively grep and show files that match
+```bash
+grep -l "word" . -R -n
+# to output zer-byte terminator, instead of space
+grep -lZ "word" . -R -n | xargs -0 ls
+```
+
+* To just check if there is a match or not
+```bash
+grep -q "word" fileName
+echo $?
+# if 0, it found a match, if 1 no match is found
+```
+
+* To display lines after and before a match
+```bash
+# 3 lines after the match and 3 lines before the match
+grep word fileName -A 3 -B 3
+# same as before
+grep word fileName -C 3
+```
+
+* To ignore the case
+```bash
+grep -i "aiden" . -R -n
+```
+
+* To search multiple patterns
+```bash
+grep -e "aiden" -e "AIDEN" . -R -n
+grep -f patterns.file . -E -n
 ```
 
 * To compress whitespace
@@ -518,6 +617,16 @@ ssh user@remotehost "echo $command | base64 -d | bash"
 man 5 passwd
 # shows passwd from section 1
 man passwd
+```
+
+* To view all lines except the last 5 lines
+```bash
+head -n -5 input.file
+```
+
+* To view all lines except the first 5 lines
+```bash
+tail -n +6 input.file
 ```
 
 * Essential directories
@@ -696,6 +805,21 @@ patch originalFile.txt -i my.patch -o updatedFile.txt
 patch --verbose originalFile.txt < my.patch
 ```
 
+* To create a patch
+```bash
+diff -u v1.txt v2.txt > v.patch
+# convert v1.txt to v2.txt by applying the patch
+patch -p1 v1.txt < v.patch
+# now v1.txt is same as v2.txt
+# to revert the changes back to v1.txt
+patch -p1 v1.txt < v.patch
+```
+
+* To diff directories
+```bash
+diff -Naur dir1 dir2
+```
+
 * To split a file into equal pieces
 ```bash
 split file
@@ -857,4 +981,11 @@ touch -a file.path
 * To change modification time of a file
 ```bash
 touch -m file.path
+```
+
+* To learn the type of a file
+```bash
+file file.path
+# get the file type without the file name
+file -b file.path
 ```
