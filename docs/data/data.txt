@@ -1,0 +1,6 @@
+user1:email1@test.com:http://www.apple.com
+user2:email2@test.com:https://www.microsoft.com
+user3:email3@test.com:https://www.google.com
+user4:email4@test.com:https://www.amazon.com
+user5:email5@test.com:https://www.twitter.com
+user6:email6@test.com:http://www.sony.com

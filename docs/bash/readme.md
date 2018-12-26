@@ -112,6 +112,7 @@
 * string last char removal
 * string first char removal
 * building comma separated list
+* replace a string
 
 ## [unquote.sh](string_info.sh)
 * -n to test if string is non-zero length
@@ -185,9 +186,15 @@
 * waiting on bacgkround processes
 * getting the previous command $!
 
-## [file_types.h](file_types.h)
+## [file_types.h](file_types.sh)
 * finding out the type of a file
 * associative arrays
+
+## [create_album.sh](create_album.sh)
+* a template to create albums from an image directory
+* here document
+* function
+* for loop, iterating files, file name matching
 
 # Notes
 * To see all defined shell variables and values

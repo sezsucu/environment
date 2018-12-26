@@ -19,3 +19,4 @@ for item in "${items[@]}"; do
     list="${list}${list:+, }$item"
 done
 echo $list
+echo ${list/banana/lemon}

@@ -8,6 +8,7 @@
 * `echo`: print to standard output
 * `printf`: print formatted strings to standard output
 * `cat`: output contents of a file
+* `tac`: print files in reverse order
 * `sort`: to sort a file
 * `uniq`: to remove adjacent duplicate lines from a file
 * `tee`: to copy input into both standard output and a given file
@@ -80,6 +81,9 @@
 * `pushd`: add directories to the directory stack
 * `dirs`: display directories in the directory stack
 * `popd`: pops the current directory and changes to the new top directory
+* `paste`: merges multiple files column-wise
+* `wget`: to download urls
+* `curl`: to download urls
 
 ## Command Examples
 * To manipulate multiple directories
@@ -183,7 +187,7 @@ uuidgen -t
 uuidgen | tr [a-z] [A-Z]
 ```
 
-* To sanitize file names
+* To sanitize fi`le names
 ```bash
 # replace any character that is not in the list with an underscore
 echo 'fileName' | sed -e 's/[^A-Za-z0-9._-]/_/g'
@@ -202,6 +206,10 @@ sed -i 's/root/clown/3g' passwd.cp
 sed -i .bak 's/root/clown/3g' passwd.cp
 # you can use regular expressions \1 refers to the matched part in parentheses
 sed 's/digit \([0-9]\)/\1/'
+# to remove comments from a file
+sed 's:/\*.*\*/::g'
+# to remove a sentence containing a specific phrase
+sed 's/[^.]*hello world[^.]*\.//g'
 ```
 
 * To remove blank lines
@@ -502,6 +510,10 @@ grep -v '^#' ../data/passwd | awk 'BEGIN {FS=":"; OFS="\t"; } { print $1, "->", 
 egrep -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' ../data/ips.txt
 # find the number of lines that matched
 egrep -c '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' ../data/ips.txt
+# to grep email addresses
+egrep -o '[A-Za-z0-9._]+@[A-Za-z0-9.]+\.[a-zA-Z]{2,4}' ../data/data.txt
+# to grep urls
+egrep -o 'https?://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,4}' ../data/data.txt
 ```
 
 * To display the files that match
@@ -941,6 +953,8 @@ find . -type f -mtime +10 -exec multi_command.sh \;
 find . -name ".git" -prune -o -type f -print
 # move all movies to a single directory
 find . -name "*.mov" -exec mv {} /path/to/targetDir \;
+# executing a command for all found files at once, rather than one per file
+find . -name "*.cc" -exec sed 's/varName1/varName2/g' \{\} \+
 ```
 
 * Use xargs to split input into items and run a command for each one of them
@@ -988,4 +1002,61 @@ touch -m file.path
 file file.path
 # get the file type without the file name
 file -b file.path
+```
+
+* To merge files column-wise
+```bash
+paste input1.txt input2.txt -d ","
+```
+
+* To print files in reverse order
+```bash
+tac input.file
+seq 10 | tac
+```
+
+* To specify the output file name for wget
+```bash
+wget http://www.test.com -O output.file
+# to put the stdout into a log file
+wget http://www.test.com -O output.file -o log.file
+# to try at least 5 times
+wget -t 5 http://www.test.com
+# to try indefinitely
+wget -t 0 http://www.test.com
+# to limit bandwidth
+wget --limit-rate 20k http://www.test.com
+# to resume downloading
+wget -c http://www.test.com
+# to mirror a website
+wget --mirror --convert-links http://www.test.com
+# to mirror with some limits (with 3 depth)
+wget -r -N -l -k 3 http://www.test.com
+```
+
+* To download to a specific file
+```bash
+curl www.test.com -o index.html
+# to download without the progress bar
+curl www.test.com --silent -o index.html
+# to resume from a given offset
+curl www.test.com -C 2000
+# to resume automatically
+curl -C - www.test.com
+# setting the referer
+curl --referer http://www.test.com http://www.test.com/index.html
+# to set a cookie
+curl http://test.com --cokie "user=userName;passwd=pass"
+# to set a cookie jar file
+curl http://www.test.com --cookie-jar cooki.file.path
+# to set the user agent
+curl http://www.test.com --user-agent "Mozilla/5.0"
+# to set any header
+curl -H "Host: www.test.com" -H "Accept-language: en" http://www.test.com
+# to limit the bandwidth
+curl http://www.test.com --limit-rate 20k
+# to specify the maximum file size
+curl http://www.test.com --max-filesize 1048576
+# to print response headers excluding data
+curl -I http://www.test.com
 ```
